@@ -4,7 +4,8 @@ const { Country } = require("../db");
 const getAllInfo = async () => {
   try {
     const dataInDB = await Country.count(); // para ver si está cargada la base de datos, si está vacía se consume la API y completa el modelo.
-    if (!dataInDB) {
+
+    if ( !dataInDB) {
       const apiResponse = await axios.get("https://restcountries.com/v3/all");
 
       const allApiCountries = apiResponse.data.map((e) => {

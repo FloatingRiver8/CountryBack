@@ -16,7 +16,7 @@ router.use("/", async (req, res) => {
       season,
     });
 
-    activity.setCountries(countries); // para relacionar la actividad con el country en la tabla intermedia
+    await activity.setCountries(countries); // para relacionar la actividad con el country en la tabla intermedia
 
     let completeActivity = await Activity.findOne({
       where: {
@@ -24,6 +24,9 @@ router.use("/", async (req, res) => {
       },
       include: {
         model: Country,
+
+
+
         attributes: {
           include: ["name"],
           exclude: [
@@ -35,10 +38,10 @@ router.use("/", async (req, res) => {
             "updatedAt",
           ],
         },
-
-            through:{
+        through:{
             attributes: []
-        } 
+        } , 
+
       },
     });
 
