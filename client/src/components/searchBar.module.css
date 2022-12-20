@@ -1,0 +1,5 @@
+.home_searchBar{
+    display:flex;
+    justify-content: end;
+    background-color: aquamarine;
+}

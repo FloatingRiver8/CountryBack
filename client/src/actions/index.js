@@ -1,8 +1,8 @@
 import axios from "axios";
 
-
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
 export const GET_ONE_COUNTRY = "GET_ONE_COUNTRY";
+export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 export const ERROR = "ERROR";
 
 const getAllCountries = () => {
@@ -24,7 +24,6 @@ const getAllCountries = () => {
 };
 
 const getOneCountry = (payload) => {
-
   return async (dispatch) => {
     try {
       const responseOne = await axios.get(
@@ -44,4 +43,13 @@ const getOneCountry = (payload) => {
   };
 };
 
-export { getAllCountries, getOneCountry };
+const filterByContinent = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: FILTER_BY_CONTINENT,
+      payload: payload,
+    });
+  };
+};
+
+export { getAllCountries, getOneCountry, filterByContinent };

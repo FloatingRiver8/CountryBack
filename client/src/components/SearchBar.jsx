@@ -1,10 +1,14 @@
 
 import { useDispatch } from 'react-redux'
 import { getOneCountry } from '../actions'
+import s from './searchBar.module.css'
 
 export default function SearchBar() {
 
     const dispatch = useDispatch()
+
+
+
 
 
     const handleChange = (e) => {
@@ -18,7 +22,7 @@ export default function SearchBar() {
 
 
     return (
-        <div>SearchBar
+        <div className={`${ s.home_searchBar}`}>SearchBar
 
             <input type="text" onChange={handleChange}></input>
 
