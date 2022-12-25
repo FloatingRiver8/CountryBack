@@ -1,8 +1,12 @@
 import axios from "axios";
 
+
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
 export const GET_ONE_COUNTRY = "GET_ONE_COUNTRY";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
+export const ORDER_BY_ALPHABET = "ORDER_BY_ALPHABET";
+export const ORDER_BY_POPULATION = "ORDER_BY_POPULATION";
+export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID" 
 export const ERROR = "ERROR";
 
 const getAllCountries = () => {
@@ -47,9 +51,39 @@ const filterByContinent = (payload) => {
   return (dispatch) => {
     dispatch({
       type: FILTER_BY_CONTINENT,
-      payload: payload,
+      payload: payload
     });
   };
 };
 
-export { getAllCountries, getOneCountry, filterByContinent };
+
+const orderByAlphabet = (payload) =>{
+  return(dispatch) => {
+    dispatch({
+      type: ORDER_BY_ALPHABET,
+      payload: payload
+    })
+  }
+}
+
+const orderByPopulation = (payload) =>{
+  return(dispatch) => {
+    dispatch({
+      type: ORDER_BY_POPULATION,
+      payload: payload
+    })
+  }
+}
+
+ const detailCardById = (payload) =>{
+  return async (dispatch)=> {
+   const responseId =  await axios.get(`http://localhost:3001/country/${payload}`)
+   console.log(responseId)
+
+  dispatch({
+    type: DETAIL_CARD_BY_ID,
+    payload:responseId.data
+  })
+ }} 
+
+export { getAllCountries, getOneCountry, filterByContinent, orderByAlphabet, orderByPopulation, detailCardById  };
