@@ -1,25 +1,22 @@
-.home_cardDiv {
-
-    background: aqua;
+.div_detailCard{
+    background: orchid;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     border-radius: 7px;
     justify-content: space-evenly;
     align-items: center;
 
-
-
 }
 
-.home_cardEach {
+.detailCard_card {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
 
-    background: orchid;
+    background: aqua;
     width: 40vh;
     padding: 1.5rem;
     margin: 3rem 2rem;
@@ -27,10 +24,5 @@
     border-radius: 7px;
     box-shadow: 7px 7px 7px #d9c0a9,
         -7px -7px 7px #ffffe5;
-   
-}
-
-.card_cardDiv {
-    border-width: 1rem;
-    border-color: black;
+    border-color: rgb(217, 34, 34);
 }

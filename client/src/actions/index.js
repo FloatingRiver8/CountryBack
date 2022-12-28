@@ -1,12 +1,14 @@
 import axios from "axios";
 
 
+
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
 export const GET_ONE_COUNTRY = "GET_ONE_COUNTRY";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 export const ORDER_BY_ALPHABET = "ORDER_BY_ALPHABET";
 export const ORDER_BY_POPULATION = "ORDER_BY_POPULATION";
-export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID" 
+export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID" ;
+export const GET_ACTIVITY = "GET_ACTIVITY";
 export const ERROR = "ERROR";
 
 const getAllCountries = () => {
@@ -27,7 +29,7 @@ const getAllCountries = () => {
   };
 };
 
-const getOneCountry = (payload) => {
+const getOneCountry = (payload, payloadCont) => {
   return async (dispatch) => {
     try {
       const responseOne = await axios.get(
@@ -37,6 +39,7 @@ const getOneCountry = (payload) => {
       dispatch({
         type: GET_ONE_COUNTRY,
         payload: responseOne.data,
+        payloadCont:payloadCont
       });
     } catch (err) {
       dispatch({
@@ -86,4 +89,19 @@ const orderByPopulation = (payload) =>{
   })
  }} 
 
-export { getAllCountries, getOneCountry, filterByContinent, orderByAlphabet, orderByPopulation, detailCardById  };
+/* 
+ const getActivity = (payload) =>{
+
+return async (dispatch) => {
+const responseActivity = axios.get(`http://localhost:3001/activity/${payload}`)
+
+dispatch({
+  type: GET_ACTIVITY,
+  payload: responseActivity.data
+})
+
+}
+
+ } */
+
+export { getAllCountries, getOneCountry, filterByContinent, orderByAlphabet, orderByPopulation, detailCardById };

@@ -1,35 +1,50 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-/* import s from './card.module.css' */
-
 import { useSelector, useDispatch } from 'react-redux'
 import {detailCardById} from '../actions'
+import s from './detailCard.module.css'
+
+import Activity from './Activity'
 
 export default function DetailCard() {
 
 const dispatch = useDispatch()
 
 
-const oneCountry = useSelector((state) => state.oneCountry)
+const oneById = useSelector((state) => state.oneById)
+ const [isVisible, setIsVisible]= useState(false) 
+
+const handleClick =() => {
+    setIsVisible(!isVisible) //para las actividades, renderizado con botón
+}
 
 
 let { id } = useParams(); 
 useEffect(() =>{
 dispatch(detailCardById(id))
-},[dispatch])
+/* console.log(id) */
+},[id])
 
 
+/* Las Actividades que me vienen incluidas en el estado oneCountry ya que en el back le sumé que me traiga lo que esté en la BD del modelo Activities */
 
     return (
-        <div >
-            <h1>{oneCountry.name}</h1>
-            <h2>{oneCountry.capital}</h2>
-            <p>Id:{id}</p>
-            <img src={oneCountry.flag} alt="flag" height='150px' width='210px' />
-            <p>Continent: {oneCountry.continent}</p>
-            <p>Subregion: {oneCountry.subregion}</p>
-            <p>Area: {oneCountry.area}</p>
-            <p>Population: {oneCountry.population}</p>
+        <div className={`${s.div_detailCard}` } key={oneById.id}>
+            <div className={`${s.detailCard_card}`}>
+            <h1>{oneById.name}</h1>
+            <h2>Capital: {oneById.capital}</h2>
+            <p>Id:{oneById.id}</p>
+            <img src={oneById.urlFlag} alt="flag" height='150px' width='210px' />
+            <p>Continent: {oneById.continent}</p>
+            <p>Subregion: {oneById.subregion}</p>
+            <p>Area: {oneById.area}</p>
+            <p>Population: {oneById.population}</p>
+            <p>Population: {oneById.population}</p>
+
+            </div>
+            <button onClick ={handleClick} > Activity: </button>
+            {isVisible && <Activity />}
+                        
         </div>
-    )
-}
+                    )}
+

@@ -11,8 +11,7 @@ function App() {
     <BrowserRouter>
 
     <div className="App">
-      <h1>Esto es app.js</h1>
-      <Route exact path= '/' component={ LandingPage }></Route>
+    <Route exact path= '/' component={ LandingPage }></Route>
     <Route exact path= '/home' component={ Home }></Route>
     <Route exact path='/form' component={ Form }></Route>
     <Route exact path='/country/:id' component={ DetailCard }></Route>

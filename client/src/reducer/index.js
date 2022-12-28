@@ -6,13 +6,16 @@ import {
   FILTER_BY_CONTINENT,
   ORDER_BY_ALPHABET,
   ORDER_BY_POPULATION,
- DETAIL_CARD_BY_ID 
+ DETAIL_CARD_BY_ID,
+  GET_ACTIVITY
 } from "../actions/index";
 
 const initialState = {
   allCountries: [],
   oneCountry: [],
   copyAllCountries: [],
+  oneById: [],
+  activity: [],
   error: "",
 };
 
@@ -22,18 +25,28 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         allCountries: action.payload,
-        copyAllCountries: action.payload
+        copyAllCountries: action.payload,
+        
       };
     case ERROR:
       return {
+        ...state,
         error: action.payload,
       };
 
     case GET_ONE_COUNTRY:
+   //MEJORA para hacer el search si el filtro está puesto en un continente
+      const paySearchbar = action.payload //busca en el total de los paises que me traigo del back que hagan match con el name
+      const payCont = action.payloadCont // el select del país
+      const filteredByContinents = paySearchbar.filter((e) => e.continent === payCont)
+   
+
+
       return {
         ...state,
-        allCountries: action.payload,
+        allCountries: payCont === 'All'? action.payload : filteredByContinents,
         error: "",
+        
       };
     case FILTER_BY_CONTINENT:
       const countries = state.copyAllCountries //acá me quedé
@@ -82,8 +95,13 @@ export default function rootReducer(state = initialState, action) {
      case DETAIL_CARD_BY_ID:
         return{
           ...state,
-          oneCountry: action.payload
+          oneById: action.payload
         } 
+/*         case GET_ACTIVITY:
+          return {
+            ...state,
+            activity: action.payload
+          } */
     default:
       return state;
   }

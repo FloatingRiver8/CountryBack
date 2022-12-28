@@ -1,14 +1,12 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation, detailCardById } from '../actions'
+import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation } from '../actions'
 import { Link } from 'react-router-dom'
 import s from './card.module.css'
 import f from './form.module.css'
 
 import Card from './Card'
-
-import DetailCard from './DetailCard' 
 import SearchBar from './SearchBar'
 
 
@@ -20,23 +18,27 @@ function Home() {
     const allCountries = useSelector((state) => state.allCountries)
     const [alphOrder, setAlphOrder] = useState("")  // para provocar el renderizado
 const [popOrder, setPopOrder] = useState("") 
+const [contFilter, setContFilter] = useState("")
 
 
     useEffect(() => {
         dispatch(getAllCountries())
-      
+
     }, [dispatch ])
 
 
 
     const handleOnContinents = (e) => {
+
         dispatch(filterByContinent(e.target.value))
-        // para que siempre esté ordenado según el option del select
+        // para que siempre esté ordenado según el option del select sin importar si se cambia de continente
         if(alphOrder === "Z-A" ){
             dispatch(orderByAlphabet(  "Z-A" ))
         }else{
         dispatch(orderByAlphabet(  "A-Z" ))
         }
+
+        setContFilter(e.target.value)
     }
 
     const handleOnAlphabet = (e) => {
@@ -53,14 +55,14 @@ const [popOrder, setPopOrder] = useState("")
 
 
     return (
-        <div>
+        <div className={`${s.home_cardDiv}`}>
 
-            <SearchBar />
+            <SearchBar contFilter = {contFilter} />
 
 
             <div>
                 <select  onChange = { handleOnContinents}>
-                    <option value='All'>All</option>
+                    <option value='All' key='All'>All</option>
                     <option value='Africa' key='Africa'>Africa</option>
                     <option value='Antarctica' key='Antarctica'>Antarctica</option>
                     <option value='Europe' key='Europe'>Europe</option>
@@ -86,11 +88,6 @@ const [popOrder, setPopOrder] = useState("")
 
 
 
-
-
-
-
-
             {/* FORM ACTIVITY */}
             <Link to='/form'>
                 <button className={`${f.home_btn_createActivity}`}>
@@ -101,12 +98,11 @@ const [popOrder, setPopOrder] = useState("")
 
             {/* //SHOWING CARDS */}
 
-            <h3>Home</h3>
             <div className={`${s.home_cardDiv}`}>
                 {allCountries.length && allCountries.map((c) => {
                     return (
 
-                        <div className={`${s.home_cardEach}`} >
+                        <div className={`${s.home_cardEach}`} key= {c.id} >
                             <Card name={c.name} flag={c.urlFlag} continent={c.continent} key= {c.id} id={c.id} />
                         </div>
                         
