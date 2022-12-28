@@ -35,16 +35,17 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case GET_ONE_COUNTRY:
-   //MEJORA para hacer el search si el filtro está puesto en un continente
-      const paySearchbar = action.payload //busca en el total de los paises que me traigo del back que hagan match con el name
-      const payCont = action.payloadCont // el select del país
+      const countriesByCont = state.copyAllCountries
+      const paySearchbar = action.payload
+      const payCont = action.payloadCont
       const filteredByContinents = paySearchbar.filter((e) => e.continent === payCont)
-   
-
-
+      console.log(payCont,"!!")
+      console.log(filteredByContinents)
+/*       const nameAndCont = filteredByContinents.find((e) => e.name === action.payload)  */
+      console.log(action.payload)
       return {
         ...state,
-        allCountries: payCont === 'All'? action.payload : filteredByContinents,
+        allCountries: payCont !== "All" ? filteredByContinents : action.payload,
         error: "",
         
       };
