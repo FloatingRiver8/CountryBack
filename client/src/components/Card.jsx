@@ -10,10 +10,21 @@ export default function Card({ name, flag, continent,id}) {
         <div className={`${s.card_cardDiv}` }>
             <h1>{name}</h1>
             <img src={flag} alt="flag" height='150px' width='210px' />
-            <p>Continenttttt: {continent}</p>
+            <p>Continent: {continent}</p>
+          
           
         </div>
        
        </Link> 
+
+
+
+
+
+
+
+
+
+
     )
 }

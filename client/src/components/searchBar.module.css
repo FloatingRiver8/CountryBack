@@ -3,3 +3,12 @@
     justify-content: end;
     background-color: aquamarine;
 }
+
+.searchBar_errorDiv{
+    display:flex;
+    
+    justify-content: center;
+    background-color: rgb(255, 223, 127);
+    margin: 1rem;
+    padding: 0.5rem;
+}

@@ -1,15 +1,15 @@
 import axios from "axios";
 
-
-
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
 export const GET_ONE_COUNTRY = "GET_ONE_COUNTRY";
 export const FILTER_BY_CONTINENT = "FILTER_BY_CONTINENT";
 export const ORDER_BY_ALPHABET = "ORDER_BY_ALPHABET";
 export const ORDER_BY_POPULATION = "ORDER_BY_POPULATION";
-export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID" ;
+export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID";
+export const POST_ACTIVITY = "POST_ACTIVITY";
 export const GET_ACTIVITY = "GET_ACTIVITY";
-export const ERROR = "ERROR";
+
+export const FAILURE = "FAILURE";
 
 const getAllCountries = () => {
   return async (dispatch) => {
@@ -20,10 +20,10 @@ const getAllCountries = () => {
         type: GET_ALL_COUNTRIES,
         payload: response.data,
       });
-    } catch (err) {
+    } catch (error) {
       dispatch({
-        type: ERROR,
-        payload: err.message,
+        type: FAILURE,
+        payload: error.response.data.msg
       });
     }
   };
@@ -39,11 +39,11 @@ const getOneCountry = (payload, payloadCont) => {
       dispatch({
         type: GET_ONE_COUNTRY,
         payload: responseOne.data,
-        payloadCont:payloadCont
+        payloadCont: payloadCont,
       });
     } catch (err) {
       dispatch({
-        type: ERROR,
+        type: FAILURE,
         payload: err.response.data.msg,
       });
     }
@@ -54,54 +54,75 @@ const filterByContinent = (payload) => {
   return (dispatch) => {
     dispatch({
       type: FILTER_BY_CONTINENT,
-      payload: payload
+      payload: payload,
     });
   };
 };
 
-
-const orderByAlphabet = (payload) =>{
-  return(dispatch) => {
+const orderByAlphabet = (payload) => {
+  return (dispatch) => {
     dispatch({
       type: ORDER_BY_ALPHABET,
-      payload: payload
-    })
-  }
-}
+      payload: payload,
+    });
+  };
+};
 
-const orderByPopulation = (payload) =>{
-  return(dispatch) => {
+const orderByPopulation = (payload) => {
+  return (dispatch) => {
     dispatch({
       type: ORDER_BY_POPULATION,
-      payload: payload
-    })
-  }
-}
+      payload: payload,
+    });
+  };
+};
 
- const detailCardById = (payload) =>{
-  return async (dispatch)=> {
-   const responseId =  await axios.get(`http://localhost:3001/country/${payload}`)
-   console.log(responseId)
+const detailCardById = (payload) => {
+  return async (dispatch) => {
+    const responseId = await axios.get(
+      `http://localhost:3001/country/${payload}`
+    );
+    console.log(responseId);
 
-  dispatch({
-    type: DETAIL_CARD_BY_ID,
-    payload:responseId.data
-  })
- }} 
+    dispatch({
+      type: DETAIL_CARD_BY_ID,
+      payload: responseId.data,
+    });
+  };
+};
 
-/* 
- const getActivity = (payload) =>{
+const postActivity = (payload) => {
+  return async function () {
+    try {
+      const response = axios.post("http://localhost:3001/activity", payload);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
 
-return async (dispatch) => {
-const responseActivity = axios.get(`http://localhost:3001/activity/${payload}`)
+const getActivity = (payload) => {
+  return async (dispatch) => {
+    const responseActivity = axios.get(
+      `http://localhost:3001/activity/${payload}`
+    );
 
-dispatch({
-  type: GET_ACTIVITY,
-  payload: responseActivity.data
-})
+    dispatch({
+      type: GET_ACTIVITY,
+      payload: responseActivity.data,
+    });
+  };
+};
 
-}
-
- } */
-
-export { getAllCountries, getOneCountry, filterByContinent, orderByAlphabet, orderByPopulation, detailCardById };
+export {
+  getAllCountries,
+  getOneCountry,
+  filterByContinent,
+  orderByAlphabet,
+  orderByPopulation,
+  detailCardById,
+  getActivity,
+  postActivity,
+};

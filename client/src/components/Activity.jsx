@@ -2,7 +2,7 @@
 import React, { useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import {detailCardById} from '../actions'
+import { detailCardById } from '../actions'
 import s from "./activity.module.css"
 
 
@@ -14,7 +14,7 @@ function Activity() {
   let { id } = useParams(); 
   useEffect(() =>{
   dispatch(detailCardById(id))
-  /* console.log(id) */
+   console.log(id, "trayendo actividades") 
   },[id])
   
   return (

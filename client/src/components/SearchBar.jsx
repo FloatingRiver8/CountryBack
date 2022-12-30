@@ -1,8 +1,9 @@
 
-import {  useState } from 'react'
-import { useDispatch } from 'react-redux'
+
+import { useDispatch, useSelector } from 'react-redux'
 import { getOneCountry} from '../actions'
-import s from './searchBar.module.css'
+
+
 
 
 
@@ -11,9 +12,9 @@ export default function SearchBar({contFilter}) {
 
     const dispatch = useDispatch()
     
+  
 
-
-    console.log(contFilter)
+    
 //para que me renderice cuando no hay onChanges en los select y tome "All" por default, de esta manera puedo hacer búsquedas en All y que las muestre
 if(contFilter === ""){
     contFilter = "All"
@@ -34,9 +35,11 @@ Envío el estado del select del continente como segundo payload  para luego usar
 
     return (
         <div>
-            SearchBar
-
+           
+            <div>
+                <label>SearchBar</label>
             <input type="text" onChange={handleChange}></input>
+            </div>
 
 
         </div>

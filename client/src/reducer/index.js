@@ -1,13 +1,14 @@
 import React from "react";
 import {
   GET_ALL_COUNTRIES,
-  ERROR,
   GET_ONE_COUNTRY,
   FILTER_BY_CONTINENT,
   ORDER_BY_ALPHABET,
   ORDER_BY_POPULATION,
  DETAIL_CARD_BY_ID,
-  GET_ACTIVITY
+  GET_ACTIVITY,
+  POST_ACTIVITY,
+  FAILURE
 } from "../actions/index";
 
 const initialState = {
@@ -26,23 +27,23 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCountries: action.payload,
         copyAllCountries: action.payload,
-        
+        error: "",
       };
-    case ERROR:
+    case FAILURE:
       return {
         ...state,
         error: action.payload,
+        
       };
 
     case GET_ONE_COUNTRY:
       const countriesByCont = state.copyAllCountries
       const paySearchbar = action.payload
-      const payCont = action.payloadCont
+      const payCont = action.payloadCont//me llega el continente en que está el filtro
       const filteredByContinents = paySearchbar.filter((e) => e.continent === payCont)
-      console.log(payCont,"!!")
-      console.log(filteredByContinents)
-/*       const nameAndCont = filteredByContinents.find((e) => e.name === action.payload)  */
-      console.log(action.payload)
+      /* console.log(payCont,"!!") */
+/*       console.log(filteredByContinents)
+      console.log(action.payload) */
       return {
         ...state,
         allCountries: payCont !== "All" ? filteredByContinents : action.payload,
@@ -52,7 +53,7 @@ export default function rootReducer(state = initialState, action) {
     case FILTER_BY_CONTINENT:
       const countries = state.copyAllCountries //acá me quedé
       const filteredContinents = countries.filter((e) => e.continent === action.payload)
-      console.log(filteredContinents)
+      /* console.log(filteredContinents) */
       return {
        
         ...state,
@@ -98,11 +99,15 @@ export default function rootReducer(state = initialState, action) {
           ...state,
           oneById: action.payload
         } 
-/*         case GET_ACTIVITY:
+        case POST_ACTIVITY:
+          return{
+            ...state
+          }
+     case GET_ACTIVITY:
           return {
             ...state,
             activity: action.payload
-          } */
+          } 
     default:
       return state;
   }
