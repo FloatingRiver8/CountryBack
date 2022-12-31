@@ -1,10 +1,9 @@
-
 import React from 'react'
 import { Link } from 'react-router-dom'
 import s from './card.module.css'
 
 
-export default function Card({ name, flag, continent, id }) {
+export default function ActivityCard({ name, flag, continent, id }) {
 
 
 

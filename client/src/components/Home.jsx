@@ -7,6 +7,7 @@ import s from './card.module.css'
 import f from './form.module.css'
 
 import Card from './Card'
+import ActivityCard from './AcivityCard'
 import SearchBar from './SearchBar'
 import Error from './Error'
 
@@ -182,13 +183,13 @@ const uniqueActivities = actvtNames.filter((name, index)=> actvtNames.indexOf(na
   {
 
    
-                    countryWithActivity.length && countryWithActivity[0].countries.map((c) => {
-                        console.log(countryWithActivity)
+                    countryWithActivity.length && countryWithActivity.map((c) => {
+                        console.log(c)
                         return (
                           
 
                             <div className={`${s.home_cardEach}`} key={c.id} >
-                                <Card name={c.name} flag={c.urlFlag} continent={c.continent} key={c.id} id={c.id} error={error} />
+                                <ActivityCard name={c.countries.map((n) =>n.name)} flag={c.countries.map((f) =>f.urlFlag)} continent={c.countries.map((a) =>a.continent)} key={c.id} id={c.id} error={error} />
                             </div>
 
 
@@ -201,7 +202,7 @@ const uniqueActivities = actvtNames.filter((name, index)=> actvtNames.indexOf(na
 
                     
 
-                }  
+}
  
 
 
