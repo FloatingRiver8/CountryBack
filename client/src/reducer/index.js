@@ -114,7 +114,8 @@ export default function rootReducer(state = initialState, action) {
           return {
             ...state,
             activity: action.payload,
-            allCountries: filteredByActv
+            allCountries: filteredByActv,
+            error: action.payload
           } 
           case GET_ALL_ACTIVITIES:
             return{

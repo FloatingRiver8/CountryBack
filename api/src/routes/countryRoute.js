@@ -11,7 +11,7 @@ const router = Router();
 router.get("/", async (req, res) => {
   const { name } = req.query;
 
-  try {
+  try { 
     const response = await getAllInfo();
 
     if (name) {
@@ -19,9 +19,13 @@ router.get("/", async (req, res) => {
         where: { name: { [Op.iLike]: `%${name}%` } },
 
         include: Activity,
+    
       });
 
-      return res.status(200).send(responseFromDb);
+      responseFromDb.length? res.status(200).send(responseFromDb) :
+      res.status(404).send({ 'msg': 'Country not found' }) 
+     
+      
     } else {
       const response = await Country.findAll({
         include: {
@@ -33,9 +37,9 @@ router.get("/", async (req, res) => {
       console.log(response.name);
       return res.status(200).send(response);
     }
-  } catch (err) {
-    res.send(err);
-  }
+  } catch (error) {
+    res.send(error );
+  } 
 });
 
 
@@ -45,7 +49,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const idResponse = await Country.findByPk(`${id}`);
+    const idResponse = await Country.findByPk(`${id}`,{ include: Activity });
     console.log(idResponse);
 
     if (!idResponse) {
@@ -55,7 +59,7 @@ router.get("/:id", async (req, res) => {
       res.status(200).send(idResponse);
     }
   } catch (err) {
-    res.send(err);
+    res.send(err, 'este error de id en back');
   }
 });
 

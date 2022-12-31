@@ -28,7 +28,17 @@ function Home() {
    const countryWithActivity = useSelector((state) => state.activity)
 
 
-console.log(countryWithActivity )
+
+console.log(countryWithActivity)
+
+//Filtro actividades repetidas para mostrar en mi select
+
+const actvtNames = []
+
+activity.map((e) => actvtNames.push( e.name))
+
+const uniqueActivities = actvtNames.filter((name, index)=> actvtNames.indexOf(name) === index)
+    
 
 
 
@@ -111,12 +121,23 @@ console.log(countryWithActivity )
 {/* //Filtro PAISES por ACTIVIDADES*/}
             <div>
                 <select onChange={handleOnActivity} >
-                    {activity?.map(e => {
+
+    
+                
+
+
+                   { 
+                  
+                  uniqueActivities.map((e) => {
+              
                         return (
-                            <option value={e.name} name="activity" key={e.id}>{e.name} </option>
+                            <option value={e} name="activity" key={e}>{e} </option>
+                            
                         )
+                       
                     })}
                 </select>
+                
             </div>
 
 
@@ -132,12 +153,12 @@ console.log(countryWithActivity )
 
             {/* //SHOWING CARDS */}
 
-            <Error />
+            {/* <Error /> */}
 
             <div className={`${s.home_cardDiv}`}>
 
 
-                {
+                 {
                     allCountries.length && allCountries.map((c) => {
                         return (
 
@@ -155,12 +176,16 @@ console.log(countryWithActivity )
 
 
 
-                }
+                } 
 
 
-{/* {
+  {
+
+   
                     countryWithActivity.length && countryWithActivity[0].countries.map((c) => {
+                        console.log(countryWithActivity)
                         return (
+                          
 
                             <div className={`${s.home_cardEach}`} key={c.id} >
                                 <Card name={c.name} flag={c.urlFlag} continent={c.continent} key={c.id} id={c.id} error={error} />
@@ -174,10 +199,10 @@ console.log(countryWithActivity )
                     })
 
 
+                    
 
-
-                } */}
-
+                }  
+ 
 
 
             </div>

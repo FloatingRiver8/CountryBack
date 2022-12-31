@@ -1,4 +1,5 @@
 import axios from "axios";
+/* import { response } from "express"; */
 
 export const GET_ALL_COUNTRIES = "GET_ALL_COUNTRIES";
 export const GET_ONE_COUNTRY = "GET_ONE_COUNTRY";
@@ -93,13 +94,17 @@ const detailCardById = (payload) => {
 };
 
 const postActivity = (payload) => {
-  return async function () {
+  return async function (dispatch) {
     try {
       const response = await axios.post("http://localhost:3001/activity", payload);
       console.log(response);
       return response;
     } catch (error) {
-      console.log(error);
+       /* console.log(error.response.data.msg);  */
+       dispatch({
+        type: FAILURE,
+        payload: error.response.data.msg,
+      });
     }
   };
 };

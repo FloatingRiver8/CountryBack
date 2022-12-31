@@ -8,10 +8,10 @@ import s from './form.module.css'
 
 function Form() {
   const dispatch = useDispatch()
-  const history = useHistory() 
-  const activity = useSelector((state) => state.activity)
-  const countries = useSelector((state) => state.allCountries)
+  const history = useHistory()
 
+  const countries = useSelector((state) => state.allCountries)
+  const error = useSelector((state) => state.error)
   const [input, setInput] = useState({
     name: "",
     difficulty: "",
@@ -26,10 +26,10 @@ function Form() {
     dispatch(getAllCountries())
   }, [dispatch])
 
-  useEffect(() => {
-    dispatch(getActivity())
-}, [dispatch])
-
+  /*   useEffect(() => {
+      dispatch(getActivity())
+  }, [dispatch])
+   */
 
 
   const handleChange = (e) => {
@@ -56,44 +56,52 @@ function Form() {
         ...input,
         countries: [...input.countries, id.target.value]
       })
-     
+
     }
   }
 
 
- const handleDelete = (e) => {
-   setInput({
+  const handleDelete = (e) => {
+    setInput({
       ...input,
-      countries: input.countries.filter( c => c !== e)
+      countries: input.countries.filter(c => c !== e)
     })
   }
-  
-const handleSubmit = (e) =>{
-e.preventDefault()
-console.log(input)
-dispatch(postActivity(input))
-alert("Activity created succesfully")
-setInput({
-  name: "",
-  difficulty: "",
-  duration: "",
-  season: "",
-  countries: []
-})
-history.push('/home')
-}  
 
-  return (
-    <div className ={`${s.form_mainDiv}`}>
-      <Link to='/home'>
-        <button>Home</button>
-      </Link>
-      <h1>Create your activity</h1>
-     
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(input)
 
-      <form  onSubmit = {handleSubmit} > activity form
-      <div className = {`${s.form_formContainer}`}>
-        <div className = {`${s.form_inputs}`}>
+
+    dispatch(postActivity(input))
+    alert("Activity created succesfully")
+
+    setInput({
+      name: "",
+      difficulty: "",
+      duration: "",
+      season: "",
+      countries: []
+    })
+
+    history.push('/home')
+  }
+
+
+
+
+
+return (
+  <div className={`${s.form_mainDiv}`}>
+    <Link to='/home'>
+      <button>Home</button>
+    </Link>
+    <h1>Create your activity</h1>
+
+
+    <form onSubmit={handleSubmit} > activity form
+      <div className={`${s.form_formContainer}`}>
+        <div className={`${s.form_inputs}`}>
           <label>Name:</label>
           <input type='text'
             value={input.name}
@@ -103,7 +111,7 @@ history.push('/home')
         </div>
 
 
-        <div className = {`${s.form_inputs}`}>
+        <div className={`${s.form_inputs}`}>
           <label>Difficulty:</label>
           <input type='text'
             value={input.difficulty}
@@ -112,7 +120,7 @@ history.push('/home')
         </div>
 
 
-        <div className = {`${s.form_inputs}`}>
+        <div className={`${s.form_inputs}`}>
           <label>Duration:</label>
           <input type='text'
             value={input.duration}
@@ -121,7 +129,7 @@ history.push('/home')
         </div>
 
 
-        <div className = {`${s.form_checks}`}>
+        <div className={`${s.form_checks}`}>
           <label>Season:</label>
           <label>
             <input type='checkbox'
@@ -153,31 +161,31 @@ history.push('/home')
 
         </div>
 
-        <div className = {`${s.form_select}`}>
-          <select onChange={ handleSelect}>Countries:
+        <div className={`${s.form_select}`}>
+          <select onChange={handleSelect}>Countries:
 
             {countries?.map(e => {
 
               return (
-                <option value={e.id} name="countries" key={e.id}>{e.name} </option>
+                <option value={e.id} name="countries" key={e.id}>{e.name}</option>
               )
 
             })}
 
           </select>
 
- 
-          <div className = {`${s.form_ul}`}>
+
+          <div className={`${s.form_ul}`}>
             <ul >
               <li>{input.countries.map(el =>
-                <div onClick={() => handleDelete(el)} key={el} className = {`${s.form_ulLi}`}>
-                  {el} 
-                
+                <div onClick={() => handleDelete(el)} key={el} className={`${s.form_ulLi}`}>
+                  {el}
+
                 </div>
               )} </li>
             </ul>
 
-          </div> 
+          </div>
 
 
           <div>
@@ -186,11 +194,11 @@ history.push('/home')
 
 
         </div>
-        </div>
-      </form>
+      </div>
+    </form>
 
-    </div>
-  )
+  </div>
+)
 }
 
 export default Form
