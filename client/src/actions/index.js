@@ -8,6 +8,7 @@ export const ORDER_BY_POPULATION = "ORDER_BY_POPULATION";
 export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID";
 export const POST_ACTIVITY = "POST_ACTIVITY";
 export const GET_ACTIVITY = "GET_ACTIVITY";
+export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES"
 
 export const FAILURE = "FAILURE";
 
@@ -94,7 +95,7 @@ const detailCardById = (payload) => {
 const postActivity = (payload) => {
   return async function () {
     try {
-      const response = axios.post("http://localhost:3001/activity", payload);
+      const response = await axios.post("http://localhost:3001/activity", payload);
       console.log(response);
       return response;
     } catch (error) {
@@ -103,15 +104,33 @@ const postActivity = (payload) => {
   };
 };
 
+
+
+const getAllActivities = () =>{
+  return async (dispatch) => {
+    const responseActivity = await axios.get(
+      `http://localhost:3001/activity`
+    );
+
+    dispatch({
+      type: GET_ALL_ACTIVITIES,
+      payload: responseActivity.data,
+    });
+  console.log(responseActivity)
+  };
+};
+
+
 const getActivity = (payload) => {
   return async (dispatch) => {
-    const responseActivity = axios.get(
-      `http://localhost:3001/activity/${payload}`
+    const responseActivity = await axios.get(
+      `http://localhost:3001/activity?name=${payload}`
     );
 
     dispatch({
       type: GET_ACTIVITY,
       payload: responseActivity.data,
+      
     });
   };
 };
@@ -124,5 +143,6 @@ export {
   orderByPopulation,
   detailCardById,
   getActivity,
+  getAllActivities,
   postActivity,
 };

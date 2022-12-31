@@ -1,7 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation } from '../actions'
+import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation, getActivity, getAllActivities, getOneCountry } from '../actions'
 import { Link } from 'react-router-dom'
 import s from './card.module.css'
 import f from './form.module.css'
@@ -23,20 +23,24 @@ function Home() {
 
     const error = useSelector(state => state.error)
 
+    const activity = useSelector((state) => state.allActivities)
 
+   const countryWithActivity = useSelector((state) => state.activity)
+
+
+console.log(countryWithActivity )
 
 
 
     useEffect(() => {
         dispatch(getAllCountries())
-
+        dispatch(getAllActivities())
     }, [dispatch])
 
 
 
     const handleOnContinents = (e) => {
-
-        dispatch(filterByContinent(e.target.value))
+     dispatch(filterByContinent(e.target.value))
         // para que siempre esté ordenado según el option del select sin importar si se cambia de continente
         if (alphOrder === "Z-A") {
             dispatch(orderByAlphabet("Z-A"))
@@ -47,17 +51,27 @@ function Home() {
         setContFilter(e.target.value)//actualiza el estado del filtro
     }
 
-    const handleOnAlphabet = (e) => {
 
-        dispatch(orderByAlphabet(e.target.value))
+
+    const handleOnAlphabet = (e) => {
+      dispatch(orderByAlphabet(e.target.value))
         setAlphOrder(e.target.value)
     }
+
+
 
     const handleOnPopulation = (e) => {
         dispatch(orderByPopulation(e.target.value))
         setPopOrder(e.target.value)
     }
 
+
+
+    const handleOnActivity = (e) => {
+        console.log(e.target.value)
+        dispatch(getActivity(e.target.value))
+        
+    }  
 
 
     return (
@@ -94,6 +108,20 @@ function Home() {
 
 
 
+{/* //Filtro PAISES por ACTIVIDADES*/}
+            <div>
+                <select onChange={handleOnActivity} >
+                    {activity?.map(e => {
+                        return (
+                            <option value={e.name} name="activity" key={e.id}>{e.name} </option>
+                        )
+                    })}
+                </select>
+            </div>
+
+
+
+
             {/* FORM ACTIVITY */}
             <Link to='/form'>
                 <button className={`${f.home_btn_createActivity}`}>
@@ -104,30 +132,51 @@ function Home() {
 
             {/* //SHOWING CARDS */}
 
-             <Error/>
+            <Error />
 
             <div className={`${s.home_cardDiv}`}>
-            
 
-            {
-                   allCountries.length && allCountries.map((c) => {
+
+                {
+                    allCountries.length && allCountries.map((c) => {
                         return (
 
                             <div className={`${s.home_cardEach}`} key={c.id} >
                                 <Card name={c.name} flag={c.urlFlag} continent={c.continent} key={c.id} id={c.id} error={error} />
-                            </div> 
+                            </div>
 
 
 
 
                         )
-                        
-                    }) 
+
+                    })
 
 
-                    
 
-                } 
+
+                }
+
+
+{/* {
+                    countryWithActivity.length && countryWithActivity[0].countries.map((c) => {
+                        return (
+
+                            <div className={`${s.home_cardEach}`} key={c.id} >
+                                <Card name={c.name} flag={c.urlFlag} continent={c.continent} key={c.id} id={c.id} error={error} />
+                            </div>
+
+
+
+
+                        )
+
+                    })
+
+
+
+
+                } */}
 
 
 

@@ -5,9 +5,10 @@ import {
   FILTER_BY_CONTINENT,
   ORDER_BY_ALPHABET,
   ORDER_BY_POPULATION,
- DETAIL_CARD_BY_ID,
+  DETAIL_CARD_BY_ID,
   GET_ACTIVITY,
   POST_ACTIVITY,
+  GET_ALL_ACTIVITIES,
   FAILURE
 } from "../actions/index";
 
@@ -17,6 +18,7 @@ const initialState = {
   copyAllCountries: [],
   oneById: [],
   activity: [],
+  allActivities: [],
   error: "",
 };
 
@@ -51,7 +53,7 @@ export default function rootReducer(state = initialState, action) {
         
       };
     case FILTER_BY_CONTINENT:
-      const countries = state.copyAllCountries //acá me quedé
+      const countries = state.copyAllCountries 
       const filteredContinents = countries.filter((e) => e.continent === action.payload)
       /* console.log(filteredContinents) */
       return {
@@ -104,10 +106,21 @@ export default function rootReducer(state = initialState, action) {
             ...state
           }
      case GET_ACTIVITY:
+      const countriesCopy = state.copyAllCountries 
+      const filteredByActv = countriesCopy.filter((e) => e.activity === action.payload)
+       
+      
+      console.log(filteredByActv)
           return {
             ...state,
-            activity: action.payload
+            activity: action.payload,
+            allCountries: filteredByActv
           } 
+          case GET_ALL_ACTIVITIES:
+            return{
+            ...state,
+            allActivities: action.payload
+        }
     default:
       return state;
   }
