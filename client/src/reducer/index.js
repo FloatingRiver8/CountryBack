@@ -20,6 +20,7 @@ const initialState = {
   activity: [],
   allActivities: [],
   error: "",
+  payloadCountries: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -30,12 +31,13 @@ export default function rootReducer(state = initialState, action) {
         allCountries: action.payload,
         copyAllCountries: action.payload,
         error: "",
+       
       };
     case FAILURE:
       return {
         ...state,
         error: action.payload,
-        
+       
       };
 
     case GET_ONE_COUNTRY:
@@ -48,9 +50,9 @@ export default function rootReducer(state = initialState, action) {
       console.log(action.payload) */
       return {
         ...state,
-        allCountries: payCont !== "All" ? filteredByContinents : action.payload,
+        allCountries: payCont !== "All continents" ? filteredByContinents : action.payload,
         error: "",
-        
+       
       };
     case FILTER_BY_CONTINENT:
       const countries = state.copyAllCountries 
@@ -59,7 +61,7 @@ export default function rootReducer(state = initialState, action) {
       return {
        
         ...state,
-        allCountries :  action.payload === 'All'? countries : filteredContinents,
+        allCountries :  action.payload === 'All continents'? countries : filteredContinents,
       };
 
       case ORDER_BY_ALPHABET:
@@ -115,7 +117,7 @@ export default function rootReducer(state = initialState, action) {
             ...state,
             activity: action.payload,
             allCountries: filteredByActv,
-            error: action.payload
+            
           } 
           case GET_ALL_ACTIVITIES:
             return{

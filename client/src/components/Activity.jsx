@@ -19,11 +19,11 @@ function Activity() {
   
   return (
     
-    <div>{oneById.activities?.map ((e) => {
+    <div className={`${s.activity_actvMainDiv}`}>{oneById.activities?.map ((e) => {
      /*  /* console.log(oneById.activities,  "esteee") */
       return(
-         <div className={`${s.activity_actvDiv}`} key={e.id}>
-          <p>Activity: {e.name}</p>
+         <div className={`${s.activity_actvEachDiv}`} key={e.id}>
+          <h4>Activity: </h4> <p>{e.name}</p>
           <p>Difficulty: {e.difficulty}</p>
           <p>Duration: {e.duration}</p>
           <p>Season: {e.season}</p>

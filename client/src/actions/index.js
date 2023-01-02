@@ -47,6 +47,7 @@ const getOneCountry = (payload, payloadCont) => {
       dispatch({
         type: FAILURE,
         payload: err.response.data.msg,
+       
       });
     }
   };

@@ -17,7 +17,7 @@ export default function SearchBar({contFilter}) {
     
 //para que me renderice cuando no hay onChanges en los select y tome "All" por default, de esta manera puedo hacer búsquedas en All y que las muestre
 if(contFilter === ""){
-    contFilter = "All"
+    contFilter = "All continents"
 }
 
 

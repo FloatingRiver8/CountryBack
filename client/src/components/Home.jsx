@@ -26,32 +26,38 @@ function Home() {
 
     const activity = useSelector((state) => state.allActivities)
 
-   const countryWithActivity = useSelector((state) => state.activity)
+    const countryWithActivity = useSelector((state) => state.activity)
 
 
+    /* 
+        console.log(countryWithActivity) */
 
-console.log(countryWithActivity)
+    //Filtro actividades repetidas para mostrar en mi select
 
-//Filtro actividades repetidas para mostrar en mi select
+    const actvtNames = []
+    activity.map((e) => actvtNames.push(e.name))
+    const uniqueActivities = actvtNames.filter((name, index) => actvtNames.indexOf(name) === index)
 
-const actvtNames = []
+    const country = allCountries.length && allCountries.map((c) => {
+        return {
+            name: c.name,
+            flag: c.urlFlag,
+            continent: c.continent,
+            id: c.id,
 
-activity.map((e) => actvtNames.push( e.name))
-
-const uniqueActivities = actvtNames.filter((name, index)=> actvtNames.indexOf(name) === index)
-    
-
-
+        }
+    })
 
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getAllActivities())
-    }, [dispatch])
+    }, [dispatch,])
+
 
 
 
     const handleOnContinents = (e) => {
-     dispatch(filterByContinent(e.target.value))
+        dispatch(filterByContinent(e.target.value))
         // para que siempre esté ordenado según el option del select sin importar si se cambia de continente
         if (alphOrder === "Z-A") {
             dispatch(orderByAlphabet("Z-A"))
@@ -65,7 +71,7 @@ const uniqueActivities = actvtNames.filter((name, index)=> actvtNames.indexOf(na
 
 
     const handleOnAlphabet = (e) => {
-      dispatch(orderByAlphabet(e.target.value))
+        dispatch(orderByAlphabet(e.target.value))
         setAlphOrder(e.target.value)
     }
 
@@ -81,133 +87,98 @@ const uniqueActivities = actvtNames.filter((name, index)=> actvtNames.indexOf(na
     const handleOnActivity = (e) => {
         console.log(e.target.value)
         dispatch(getActivity(e.target.value))
-        
-    }  
+
+    }
 
 
     return (
-        <div className={`${s.home_cardDiv}`}>
-
-            <SearchBar contFilter={contFilter} />
-
-
-            <div>
-                <select onChange={handleOnContinents}>
-                    <option value='All' key='All'>All</option>
-                    <option value='Africa' key='Africa'>Africa</option>
-                    <option value='Antarctica' key='Antarctica'>Antarctica</option>
-                    <option value='Europe' key='Europe'>Europe</option>
-                    <option value='North America' key='North America'>North America</option>
-                    <option value='Oceania' key='Oceania'>Oceania</option>
-                    <option value='South America' key='South America'>South America</option>
-                </select>
-            </div>
-
-            <div>
-                <select defaultValue={'A-Z'} onChange={handleOnAlphabet}>
-                    <option value="A-Z" key="ascendent">A-Z</option>
-                    <option value="Z-A" key="descendent">Z-A</option>
-                </select>
-            </div>
-
-            <div>
-                <select onChange={handleOnPopulation}>
-                    <option value="min" key="min">Min</option>
-                    <option value="max" key="max">Max</option>
-                </select>
-            </div>
-
-
-
-{/* //Filtro PAISES por ACTIVIDADES*/}
-            <div>
-                <select onChange={handleOnActivity} >
-
-    
-                
-
-
-                   { 
-                  
-                  uniqueActivities.map((e) => {
-              
-                        return (
-                            <option value={e} name="activity" key={e}>{e} </option>
-                            
-                        )
-                       
-                    })}
-                </select>
-                
-            </div>
-
-
-
-
-            {/* FORM ACTIVITY */}
-            <Link to='/form'>
-                <button className={`${f.home_btn_createActivity}`}>
-                    <p> Create activity</p>
-                </button>
-            </Link>
-
-
-            {/* //SHOWING CARDS */}
-
-            {/* <Error /> */}
-
+        <div >
             <div className={`${s.home_cardDiv}`}>
+                <SearchBar contFilter={contFilter} />
 
 
-                 {
-                    allCountries.length && allCountries.map((c) => {
-                        return (
+                <div>
+                    <select onChange={handleOnContinents}>
+                        <option value='All continents' key='All continents'>All continents</option>
+                        <option value='Africa' key='Africa'>Africa</option>
+                        <option value='Antarctica' key='Antarctica'>Antarctica</option>
+                        <option value='Europe' key='Europe'>Europe</option>
+                        <option value='North America' key='North America'>North America</option>
+                        <option value='Oceania' key='Oceania'>Oceania</option>
+                        <option value='South America' key='South America'>South America</option>
+                        <option value='Asia' key='Asia'>Asia</option>
+                    </select>
+                </div>
 
-                            <div className={`${s.home_cardEach}`} key={c.id} >
-                                <Card name={c.name} flag={c.urlFlag} continent={c.continent} key={c.id} id={c.id} error={error} />
-                            </div>
+                <div>
+                    <select defaultValue={'A-Z'} onChange={handleOnAlphabet}>
+                        <option value="A-Z" key="ascendent">A-Z</option>
+                        <option value="Z-A" key="descendent">Z-A</option>
+                    </select>
+                </div>
 
-
-
-
-                        )
-
-                    })
-
-
-
-
-                } 
-
-
-  {
-
-   
-                    countryWithActivity.length && countryWithActivity.map((c) => {
-                        console.log(c)
-                        return (
-                          
-
-                            <div className={`${s.home_cardEach}`} key={c.id} >
-                                <ActivityCard name={c.countries.map((n) =>n.name)} flag={c.countries.map((f) =>f.urlFlag)} continent={c.countries.map((a) =>a.continent)} key={c.id} id={c.id} error={error} />
-                            </div>
+                <div>
+                    <select onChange={handleOnPopulation}>
+                        <option value="population" name="population">Population</option>
+                        <option value="min" key="min">Min</option>
+                        <option value="max" key="max">Max</option>
+                    </select>
+                </div>
 
 
 
 
-                        )
-
-                    })
-
-
-                    
-
-}
- 
+                {/* //Filtro PAISES por ACTIVIDADES*/}
+                <div>
+                    <select onChange={handleOnActivity} >
+                        <option value="1" name="default">Activity</option>
 
 
+                        {
+                            uniqueActivities.map((e) => {
+                                return (
+                                    <option value={e} name="activity" key={e}>{e} </option>
+                                )
+
+                            })}
+                    </select>
+                </div>
+            
+
+                {/* FORM ACTIVITY */}
+                <Link to='/form'>
+                    <button className={`${f.home_btn_createActivity}`}>
+                        <p> Create activity</p>
+                    </button>
+                </Link>
+
+            </div>
+            {/* //SHOWING CARDS */}
+            {/* {error? <Error /> : <Card country={country} />} */}
+
+            <div>          
+            {error? <Error /> : <Card country={country} />}               
+            </div>
+            {/* {error === ""? <Card country={country} />: <Error />}   */}
+
+            <div className={`${s.home_allCards}`} >
+                {countryWithActivity.length && countryWithActivity.map((c) => {
+                    console.log(c)
+                    return (
+
+
+                        <div key={c.id} >
+                            <ActivityCard name={c.countries.map((n) => n.name)} flag={c.countries.map((f) => f.urlFlag)} continent={c.countries.map((a) => a.continent)} key={c.countries.map((i) => i.id)} id={c.countries.map((d) => d.id)} error={error} />
+                        </div>
+
+                    )
+
+                })
+
+                }
             </div>
         </div>
+
     )
 }
 

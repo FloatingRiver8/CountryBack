@@ -6,8 +6,10 @@
 
 .searchBar_errorDiv{
     display:flex;
-    
+    height: 50vh;
     justify-content: center;
+    font-size: 3rem;
+    color:rgb(21, 113, 129);
     background-color: rgb(255, 223, 127);
     margin: 1rem;
     padding: 0.5rem;
