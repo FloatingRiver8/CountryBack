@@ -143,7 +143,7 @@ function Form() {
   return (
     <div className={`${s.form_mainDiv}`}>
       <Link to='/home'>
-        <button>Home</button>
+        <button className = {`${s.form_toHomeBtn}`}>Home</button>
       </Link>
       <h1>Create your activity</h1>
 

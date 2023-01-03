@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import s from './card.module.css'
 
 
-export default function Card({ country }) {
+export default function Card({ country}) {
    
 
     return (
@@ -13,7 +13,7 @@ export default function Card({ country }) {
 
             {country.length && country.map(e => {
                 return (
-                    <div   >
+                    <div>
                         < Link to={`/country/${e.id}`} style={{ textDecoration: 'none' }} >
 
                             <div className={`${s.home_cardEach }`}>

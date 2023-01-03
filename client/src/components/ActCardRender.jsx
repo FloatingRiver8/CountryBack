@@ -6,38 +6,32 @@ import s from './card.module.css'
 function ActCardRender({ name, flag, continent, id }) {
 
 
-    console.log(flag)
-
-    return(
+    return (
 
 
-<div>
-        
-        {name.map((n) => {
-  { console.log(n)}
-            return(
-              
-             
-                <Link to={`/country/${id}`} style={{ textDecoration: 'none' }}>
+        <div>
 
-                    <div className={`${s.home_cardEach}`}   key={`${id}`} >
-                        <h1> { name}</h1>
-                        <img src={flag} alt="flag" height='150px' width='210px' />
-                        <p>Continenttt: {continent[n]}</p>
-                    </div>
+            {name.map((n) => {
 
-                </Link>
-            
+                return (
+                    <Link to={`/country/${id}`} style={{ textDecoration: 'none' }}>
 
-        
-        )
-        
+                        <div className={`${s.home_cardEach}`} key={`${id}`} >
+                            <h1> {name}</h1>
+                            <img src={flag} alt="flag" height='150px' width='210px' />
+                            <p>Continent: {continent}</p>
+                        </div>
+
+                    </Link>
+
+                )
+
             })}
-            
-            </div>)
-            
 
-        }
+        </div>)
+
+
+}
 
 
 

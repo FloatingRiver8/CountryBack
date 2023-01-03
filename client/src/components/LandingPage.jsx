@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import s from './landing.module.css'
+
 
 function LandingPage() {
     return (
-        <div>
-            <h3>Landing</h3>
-
-            <Link to='/home'><button>Home</button></Link>
+        <div className={`${s.landing_cardDiv}`}>
+            
+            <Link to='/home'><button className={`${s.landing_button}`}> <p>Home</p></button></Link>
 
         </div>
     )

@@ -1,7 +1,15 @@
 .home_btn_createActivity {
-    margin: 2rem;
-    background-color: antiquewhite;
-    border-radius: 7px;
+    margin-left: 1rem;
+    color: #75368a;
+    border-color: #54a7a2;
+    border-radius: 8px;
+    width: 7rem;
+    margin-top: 1rem;
+
+    background: linear-gradient(315deg, #e2b371, #ffd587);
+    box-shadow: -8px -8px 7px #daad6e,
+        8px 8px 7px #ffe18e;
+    cursor: pointer;
 }
 
 
@@ -12,25 +20,25 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    
+
     justify-content: space-evenly;
     align-items: center;
     margin: 1rem;
     padding: 1rem;
 
-    border-radius:10px;
+    border-radius: 10px;
     background: #63c5bf;
-    box-shadow:  5px 5px 10px #54a7a2,
-                 -5px -5px 10px #72e3dc;
+    box-shadow: 5px 5px 10px #54a7a2,
+        -5px -5px 10px #72e3dc;
 
 
 
 }
 
 
-.form_formContainer{
+.form_formContainer {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     margin: 5rem;
     padding: 2rem;
     align-content: space-around;
@@ -39,52 +47,67 @@
     border-radius: 10px;
 
     background: #c6bd43;
-    box-shadow:  5px 5px 10px #a8a139,
-                 -5px -5px 10px #e4d94d;
-      
+    box-shadow: 5px 5px 10px #a8a139,
+        -5px -5px 10px #e4d94d;
+
 }
 
 
-.form_inputs{
+.form_inputs {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     padding: 1rem;
     border-radius: 7px;
     justify-items: center;
 }
 
-.form_checks{
+.form_checks {
     padding: 1rem;
 }
 
-.form_select{
-   
+.form_select {
+
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.form_ul{
+.form_ul {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 }
 
-.form_ulLi{
+.form_ulLi {
 
-    padding:0.2rem;
+    padding: 0.2rem;
     background-color: aqua;
     border-radius: 7px;
-    
+
 }
 
-.form_ulLi:hover{
+.form_ulLi:hover {
     background-color: gray;
 }
 
 
 /* Errores */
-.form_error{
-    color:red
+.form_error {
+    color: red
+}
+
+.form_toHomeBtn{
+    
+    color: #75368a;
+    border-color: #54a7a2;
+    border-radius: 7px;
+    padding: 0.5rem;
+    
+    margin-top: 1rem;
+
+    background: linear-gradient(315deg, #e2b371, #ffd587);
+    box-shadow: -8px -8px 7px #daad6e,
+        8px 8px 7px #ffe18e;
+    cursor: pointer;
 }

@@ -1,17 +1,20 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation, getActivity, getAllActivities, getOneCountry } from '../actions'
 import { Link } from 'react-router-dom'
-import s from './card.module.css'
-import f from './form.module.css'
 
-import Card from './Card'
-import ActivityCard from './AcivityCard'
+import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation, getActivity, getAllActivities } from '../actions'
+
+
 import ActCardRender from './ActCardRender'
 import SearchBar from './SearchBar'
-import Error from './Error'
+import Paginate from './Paginate'
+import Card from './Card'
+import ActivityCard from './AcivityCard'
 
+import Error from './Error'
+import s from './card.module.css'
+import f from './form.module.css'
 
 
 
@@ -29,17 +32,45 @@ function Home() {
 
     const countryWithActivity = useSelector((state) => state.activity)
 
+    const [reloadHome, setRealoadHome]=useState(false)
 
-    /* 
-        console.log(countryWithActivity) */
+
+
+    //Paginate
+    const [currentPage, setCurrentPage] = useState(1);
+    const countryPerPage = 15;
+    const indexOfLastCountry = currentPage * countryPerPage;
+    const indexOfFirstCountry = indexOfLastCountry - countryPerPage;
+    //me devuelve un array con 15 elementos del 0 al 14.
+    const currentCountry = allCountries.slice(indexOfFirstCountry, indexOfLastCountry)
+
+
+    //seteo el nº de la página en la que estoy, me vuelve del evento que me tira la func. del componente paginador
+    const paginator = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    }
+
+
+    //para generar volver al home desd el componente activityCard
+      const displayAllCards = (e) =>{
+        if(!reloadHome){
+        setRealoadHome(true)
+      }else{
+        setRealoadHome(false)
+      }
+     
+    }
+
+
 
     //Filtro actividades repetidas para mostrar en mi select
-
     const actvtNames = []
     activity.map((e) => actvtNames.push(e.name))
     const uniqueActivities = actvtNames.filter((name, index) => actvtNames.indexOf(name) === index)
 
-    const country = allCountries.length && allCountries.map((c) => {
+
+    //Para pasarle a mi componente Card por props
+    const country = currentCountry.length && currentCountry.map((c) => {
         return {
             name: c.name,
             flag: c.urlFlag,
@@ -53,7 +84,7 @@ function Home() {
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getAllActivities())
-    }, [dispatch,])
+    }, [dispatch, reloadHome  ])
 
 
 
@@ -93,14 +124,17 @@ function Home() {
     }
 
 
+
+
     return (
         <div >
             <div className={`${s.home_cardDiv}`}>
-                <SearchBar contFilter={contFilter} />
+                <SearchBar contFilter={contFilter} className={`${s.home_select}`} />
+
 
 
                 <div>
-                    <select onChange={handleOnContinents}>
+                    <select onChange={handleOnContinents} className={`${s.home_select}`}>
                         <option value='All continents' key='All continents'>All continents</option>
                         <option value='Africa' key='Africa'>Africa</option>
                         <option value='Antarctica' key='Antarctica'>Antarctica</option>
@@ -113,14 +147,14 @@ function Home() {
                 </div>
 
                 <div>
-                    <select defaultValue={'A-Z'} onChange={handleOnAlphabet}>
+                    <select defaultValue={'A-Z'} onChange={handleOnAlphabet} className={`${s.home_select}`}>
                         <option value="A-Z" key="ascendent">A-Z</option>
                         <option value="Z-A" key="descendent">Z-A</option>
                     </select>
                 </div>
 
                 <div>
-                    <select onChange={handleOnPopulation}>
+                    <select onChange={handleOnPopulation} className={`${s.home_select}`}>
                         <option value="population" name="population">Population</option>
                         <option value="min" key="min">Min</option>
                         <option value="max" key="max">Max</option>
@@ -132,7 +166,7 @@ function Home() {
 
                 {/* //Filtro PAISES por ACTIVIDADES*/}
                 <div>
-                    <select onChange={handleOnActivity} >
+                    <select onChange={handleOnActivity} className={`${s.home_select}`} >
                         <option value="1" name="default">Activity</option>
                         {
                             uniqueActivities.map((e) => {
@@ -145,28 +179,44 @@ function Home() {
                 </div>
 
 
-                {/* FORM ACTIVITY */}
-                <Link to='/form' >
-                    <button className={`${f.home_btn_createActivity}`}>
-                        <p> Create activity</p>
-                    </button>
-                </Link>
+                <div>
+
+                    {/* FORM ACTIVITY */}
+                    <Link to='/form' >
+                        <button className={`${f.home_btn_createActivity}`}>
+                            <p> Create activity</p>
+                        </button>
+                    </Link>
+                </div>
+
+
+
+                <Paginate
+                    countryPerPage={countryPerPage}
+                    allCountries={allCountries.length}
+                    paginator={paginator}
+                />
 
 
 
 
             </div>
 
-            
-                {/* //SHOWING CARDS */}
+  
 
-                {error ? <Error /> : <Card country={country} /> }
 
-                {!country.length || !error ? <ActivityCard countryWithActivity={countryWithActivity} /> : null}
+            {/* //SHOWING CARDS */}
 
-                </div>
-           
-        
+            {error ? <Error /> : <Card country={country}  />}
+
+            {!country.length || !error ? <ActivityCard countryWithActivity={countryWithActivity} displayAllCards={displayAllCards} /> : null}
+
+
+
+
+        </div>
+
+
     )
 
 }

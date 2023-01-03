@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneCountry} from '../actions'
-
+import style from './searchBar.module.css'
 
 
 
@@ -36,9 +36,9 @@ Envío el estado del select del continente como segundo payload  para luego usar
     return (
         <div>
            
-            <div>
-                <label>SearchBar</label>
-            <input type="text" onChange={handleChange}></input>
+            <div >
+                <label>SearchBar  </label>
+            <input type="text" onChange={handleChange} className={`${style.home_searchInput}`}></input>
             </div>
 
 
