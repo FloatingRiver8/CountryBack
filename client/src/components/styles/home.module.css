@@ -7,7 +7,7 @@
 
     justify-content: space-evenly;
     padding-top: 2rem;
-  
+
     border-radius: 10px;
     background: #63c5bf;
     box-shadow: 5px 5px 10px #54a7a2,
@@ -69,41 +69,35 @@ s.home_cardFlex {
     flex-wrap: wrap;
     width: 100vw;
     background-color: #63c5bf;
-} 
+}
 
 
-.home_select{
+.home_select {
     border-radius: 7px;
     background-color: #eee;
     border: none;
-   
+
     font-size: 1rem;
     width: 13em;
     border-radius: 1rem;
     color: rgb(164, 73, 178);
     box-shadow: 0 0.4rem #9fe3f5;
     cursor: pointer;
-   }
+}
 
-   .home_select {
+.home_select {
     outline-color: rgb(39, 189, 226);
-   }
+}
 
 
 /* home card  de filtro de actividad button */
-   .activityCard_btnHome{
+.activityCard_btnHome {
 
-    background-color:antiquewhite;
+    background-color: antiquewhite;
     padding: 0.5rem;
     border-radius: 43px;
     background: #da70d6;
-    box-shadow:  5px 5px 10px #b95fb6,
-                 -5px -5px 10px #fb81f6;
+    box-shadow: 5px 5px 10px #b95fb6,
+        -5px -5px 10px #fb81f6;
     margin-right: 33rem;
-    
-
-
-
-
-
-    }
+}

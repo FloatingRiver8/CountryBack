@@ -5,16 +5,14 @@ import { Link } from 'react-router-dom'
 
 import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation, getActivity, getAllActivities } from '../actions'
 
-
-import ActCardRender from './ActCardRender'
 import SearchBar from './SearchBar'
 import Paginate from './Paginate'
 import Card from './Card'
-import ActivityCard from './AcivityCard'
+import ActivityCard from './ActvityCardMap'
 
 import Error from './Error'
-import s from './card.module.css'
-import f from './form.module.css'
+import s from './styles/home.module.css'
+import f from './styles/form.module.css'
 
 
 

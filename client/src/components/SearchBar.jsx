@@ -2,7 +2,7 @@
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getOneCountry} from '../actions'
-import style from './searchBar.module.css'
+import style from './styles/searchBar.module.css'
 
 
 

@@ -1,6 +1,6 @@
 
-import { useDispatch, useSelector } from 'react-redux'
-import s from './searchBar.module.css'
+import { useSelector } from 'react-redux'
+import s from './styles/searchBar.module.css'
 
 
 

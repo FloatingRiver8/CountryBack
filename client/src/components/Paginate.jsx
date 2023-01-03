@@ -1,11 +1,11 @@
 import React from 'react';
-import s from './paginate.module.css'
+import s from './styles/paginate.module.css'
 
 
 
 function Paginate({ countryPerPage, allCountries, paginator }) {
 
-    //para sacar la cantidad de páginas que necesito para mostrar todos mis vg
+    //para sacar la cantidad de páginas que necesito para mostrar todos mis countries
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(allCountries / countryPerPage); i++) {
         pageNumbers.push(i)

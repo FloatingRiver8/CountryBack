@@ -9,7 +9,7 @@ export const ORDER_BY_POPULATION = "ORDER_BY_POPULATION";
 export const DETAIL_CARD_BY_ID = "DETAIL_CARD_BY_ID";
 export const POST_ACTIVITY = "POST_ACTIVITY";
 export const GET_ACTIVITY = "GET_ACTIVITY";
-export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES"
+export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES";
 
 export const FAILURE = "FAILURE";
 
@@ -25,7 +25,7 @@ const getAllCountries = () => {
     } catch (error) {
       dispatch({
         type: FAILURE,
-        payload: error.response.data.msg
+        payload: error.response.data.msg,
       });
     }
   };
@@ -47,7 +47,6 @@ const getOneCountry = (payload, payloadCont) => {
       dispatch({
         type: FAILURE,
         payload: err.response.data.msg,
-       
       });
     }
   };
@@ -80,7 +79,7 @@ const orderByPopulation = (payload) => {
   };
 };
 
-const detailCardById = (payload) => {
+const DetailCountryCardById = (payload) => {
   return async (dispatch) => {
     const responseId = await axios.get(
       `http://localhost:3001/country/${payload}`
@@ -97,12 +96,15 @@ const detailCardById = (payload) => {
 const postActivity = (payload) => {
   return async function (dispatch) {
     try {
-      const response = await axios.post("http://localhost:3001/activity", payload);
+      const response = await axios.post(
+        "http://localhost:3001/activity",
+        payload
+      );
       console.log(response);
       return response;
     } catch (error) {
-       /* console.log(error.response.data.msg);  */
-       dispatch({
+      /* console.log(error.response.data.msg);  */
+      dispatch({
         type: FAILURE,
         payload: error.response.data.msg,
       });
@@ -110,22 +112,17 @@ const postActivity = (payload) => {
   };
 };
 
-
-
-const getAllActivities = () =>{
+const getAllActivities = () => {
   return async (dispatch) => {
-    const responseActivity = await axios.get(
-      `http://localhost:3001/activity`
-    );
+    const responseActivity = await axios.get(`http://localhost:3001/activity`);
 
     dispatch({
       type: GET_ALL_ACTIVITIES,
       payload: responseActivity.data,
     });
-  console.log(responseActivity)
+    console.log(responseActivity);
   };
 };
-
 
 const getActivity = (payload) => {
   return async (dispatch) => {
@@ -136,7 +133,6 @@ const getActivity = (payload) => {
     dispatch({
       type: GET_ACTIVITY,
       payload: responseActivity.data,
-      
     });
   };
 };
@@ -147,7 +143,7 @@ export {
   filterByContinent,
   orderByAlphabet,
   orderByPopulation,
-  detailCardById,
+  DetailCountryCardById,
   getActivity,
   getAllActivities,
   postActivity,

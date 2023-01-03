@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { detailCardById } from '../actions'
-import s from './detailCard.module.css'
+import { DetailCountryCardById } from '../actions'
+import s from './styles/detailCountryCard.module.css'
 
-import Activity from './Activity'
+import Activity from './ActivityCard'
 
-export default function DetailCard() {
+export default function DetailCountryCard() {
 
     const dispatch = useDispatch()
 
@@ -21,7 +21,7 @@ export default function DetailCard() {
 
     let { id } = useParams();
     useEffect(() => {
-        dispatch(detailCardById(id))
+        dispatch(DetailCountryCardById(id))
         /* console.log(id) */
     }, [id])
 
@@ -29,19 +29,19 @@ export default function DetailCard() {
     /* Las Actividades que me vienen incluidas en el estado oneCountry ya que en el back le sumé que me traiga lo que esté en la BD del modelo Activities */
 
     return (
-        <div className={`${s.detailCard_main}`}>
+        <div className={`${s.DetailCountryCard_main}`}>
 
-            <div className={`${s.detailCard_btnsMain}`} >
-            <Link to='/home'>
-                <button className={`${s.detailCard_btnHome}`} >
-                    Home
-                </button>
-            </Link>
-           
-            <button onClick={handleClick} className={`${s.detailCard_btnActivity}`} > Activity: </button>
+            <div className={`${s.DetailCountryCard_btnsMain}`} >
+                <Link to='/home'>
+                    <button className={`${s.DetailCountryCard_btnHome}`} >
+                        Home
+                    </button>
+                </Link>
+
+                <button onClick={handleClick} className={`${s.DetailCountryCard_btnActivity}`} > Activity: </button>
             </div>
 
-            <div className={`${s.div_detailCard}`} key={oneById.id}>
+            <div className={`${s.div_DetailCountryCard}`} key={oneById.id}>
 
 
 
@@ -49,7 +49,7 @@ export default function DetailCard() {
 
 
 
-                <div className={`${s.detailCard_card}`}>
+                <div className={`${s.DetailCountryCard_card}`}>
                     <h1>{oneById.name}</h1>
                     <h2>Capital: {oneById.capital}</h2>
                     <p>Id:{oneById.id}</p>

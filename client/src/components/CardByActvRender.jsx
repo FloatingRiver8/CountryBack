@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import s from './card.module.css'
+import s from './styles/home.module.css'
 
 
-function ActCardRender({ name, flag, continent, id }) {
+function CardFilteredByActv({ name, flag, continent, id }) {
 
 
     return (
@@ -35,4 +35,4 @@ function ActCardRender({ name, flag, continent, id }) {
 
 
 
-export default ActCardRender
+export default CardFilteredByActv

@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom'
 import { getActivity, getAllCountries, postActivity } from '../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
 
-import s from './form.module.css'
+import s from './styles/form.module.css'
 let wordAtLeastOneLetter = new RegExp('^[a-zA-Z]{3,}$')
 let regOneToFive = new RegExp('^[1-5]$')
 let regOneToTen = new RegExp('^[1-9]$')
