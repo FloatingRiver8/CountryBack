@@ -4,6 +4,29 @@ import { getActivity, getAllCountries, postActivity } from '../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
 
 import s from './form.module.css'
+let wordAtLeastOneLetter = new RegExp('^[a-zA-Z]{3,}$')
+let regOneToFive = new RegExp('^[1-5]$')
+let regOneToTen = new RegExp('^[1-9]$')
+
+
+
+const validateForm = (input) =>{
+  let inputError = {}
+
+  if(!wordAtLeastOneLetter.test(input.name)){
+    inputError.name = "Name required"}else{ inputError.name = ""}
+  if (!input.difficulty){
+    inputError.difficulty = "A number is required"}else{ inputError.difficulty = ""}
+   if(!regOneToFive.test(input.difficulty)){
+    inputError.difficulty = "value must be under 5"}else{ inputError.difficulty = ""}
+  if(!regOneToTen.test(input.duration)){
+  inputError.duration = "value must be under 10"
+  }else{ inputError.duration = ""}
+  return inputError
+}
+
+
+
 
 
 function Form() {
@@ -12,6 +35,8 @@ function Form() {
 
   const countries = useSelector((state) => state.allCountries)
   const error = useSelector((state) => state.error)
+const [inputError , setInputError] = useState({})
+
   const [input, setInput] = useState({
     name: "",
     difficulty: "",
@@ -20,16 +45,16 @@ function Form() {
     countries: []
   })
 
+  const season = ['Winter', 'Spring', 'Autumn', 'Summer'];
+
+
+
 
   console.log(input)
   useEffect(() => {
     dispatch(getAllCountries())
   }, [dispatch])
 
-  /*   useEffect(() => {
-      dispatch(getActivity())
-  }, [dispatch])
-   */
 
 
   const handleChange = (e) => {
@@ -37,15 +62,23 @@ function Form() {
       ...input,
       [e.target.name]: e.target.value
     })
+
+//control errores
+ setInputError(validateForm({
+  ...input,
+  [e.target.name]: e.target.value
+})) 
+
+
   }
 
-  const handleCheck = (e) => {
-    if (e.target.checked) {
+  const handleSeason = (e) => {
+    if (e.target.value) {
       setInput({
         ...input,
         season: e.target.value
       })
-      console.log(e.target.checked)
+      console.log(e.target.value)
     }
   }
 
@@ -68,13 +101,25 @@ function Form() {
     })
   }
 
+  
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(input)
+    
+    if (input.name && input.difficulty && input.duration && input.season && input.countries !== ""){
+    
+      dispatch(postActivity(input))
+      alert("Activity created succesfully")
+      history.push('/home')
+    }
+   else {
+    
+    console.log(inputError)
+      console.log("falta")
+      alert("some information is missing")
+  }
 
-
-    dispatch(postActivity(input))
-    alert("Activity created succesfully")
+   
 
     setInput({
       name: "",
@@ -84,7 +129,7 @@ function Form() {
       countries: []
     })
 
-    history.push('/home')
+   
   }
 
 
@@ -101,6 +146,7 @@ return (
 
     <form onSubmit={handleSubmit} > activity form
       <div className={`${s.form_formContainer}`}>
+
         <div className={`${s.form_inputs}`}>
           <label>Name:</label>
           <input type='text'
@@ -108,6 +154,7 @@ return (
             name='name'
             onChange={handleChange}
           />
+          {inputError.name && ( <p>{inputError.name}</p>)}
         </div>
 
 
@@ -117,6 +164,7 @@ return (
             value={input.difficulty}
             name='difficulty'
             onChange={handleChange} />
+            {inputError.difficulty && ( <p>{inputError.difficulty}</p>)}
         </div>
 
 
@@ -126,40 +174,18 @@ return (
             value={input.duration}
             name='duration'
             onChange={handleChange} />
+            {inputError.duration && ( <p>{inputError.duration}</p>)}
         </div>
-
-
         <div className={`${s.form_checks}`}>
-          <label>Season:</label>
-          <label>
-            <input type='checkbox'
-              value='Summer'
-              name='summer'
-              onChange={(e) => { handleCheck(e) }} />
-            Summer </label>
+                                <label>Season: </label>
+                                <select onChange={handleSeason} required>
+                                    <option value="" hidden>Select season</option>
+                                    {season.map(e => (
+                                        <option value={e} name="season" key={e} >{e}</option>
+                                    ))}
+                                </select>
+                            </div>
 
-          <label>
-            <input type='checkbox'
-              value='autumn'
-              name='autumn'
-              onChange={(e) => { handleCheck(e) }} />
-            Autumn </label>
-
-          <label>
-            <input type='checkbox'
-              value='winter'
-              name='winter'
-              onChange={(e) => { handleCheck(e) }} />
-            Winter </label>
-
-          <label>
-            <input type='checkbox'
-              value='spring'
-              name='spring'
-              onChange={(e) => { handleCheck(e) }} />
-            Spring </label>
-
-        </div>
 
         <div className={`${s.form_select}`}>
           <select onChange={handleSelect}>Countries:

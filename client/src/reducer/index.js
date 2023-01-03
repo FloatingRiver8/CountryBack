@@ -66,7 +66,7 @@ export default function rootReducer(state = initialState, action) {
 
       case ORDER_BY_ALPHABET:
        const alphCountries = state.allCountries
-     const order = action.payload === 'A-Z'? alphCountries.sort(function(a, b){ // me quedé acá
+     const order = action.payload === 'A-Z'? alphCountries.sort(function(a, b){ 
           if(a.name > b.name)return 1
           if(b.name > a.name)return -1
           return 0
@@ -110,12 +110,13 @@ export default function rootReducer(state = initialState, action) {
      case GET_ACTIVITY:
       const countriesCopy = state.copyAllCountries 
       const filteredByActv = countriesCopy.filter((e) => e.activity === action.payload)
+      //me filtra los que no vienen con toda la info completa
+       const completeFilteredActivity = action.payload.filter((e) => e.countries.length !==  0)
        
-      
-      console.log(filteredByActv)
+  
           return {
             ...state,
-            activity: action.payload,
+            activity: completeFilteredActivity ,
             allCountries: filteredByActv,
             
           } 

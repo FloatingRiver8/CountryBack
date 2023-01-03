@@ -8,6 +8,7 @@ import f from './form.module.css'
 
 import Card from './Card'
 import ActivityCard from './AcivityCard'
+import ActCardRender from './ActCardRender'
 import SearchBar from './SearchBar'
 import Error from './Error'
 
@@ -47,6 +48,7 @@ function Home() {
 
         }
     })
+
 
     useEffect(() => {
         dispatch(getAllCountries())
@@ -143,41 +145,48 @@ function Home() {
                             })}
                     </select>
                 </div>
-            
+
 
                 {/* FORM ACTIVITY */}
-                <Link to='/form'>
+                <Link to='/form' >
                     <button className={`${f.home_btn_createActivity}`}>
                         <p> Create activity</p>
                     </button>
                 </Link>
 
             </div>
+
+
+
+
             {/* //SHOWING CARDS */}
-            {/* {error? <Error /> : <Card country={country} />} */}
 
-            <div>          
-            {error? <Error /> : <Card country={country} />}               
-            </div>
-            {/* {error === ""? <Card country={country} />: <Error />}   */}
+            {error ? <Error /> : <Card country={country} />}
 
-            <div className={`${s.home_allCards}`} >
-                {countryWithActivity.length && countryWithActivity.map((c) => {
+            {!country.length || !error ? <div className={`${s.home_allCards}`}  ><ActivityCard countryWithActivity={countryWithActivity} /> </div> : null}
+
+
+            {/*  <ActCardRender/> */}
+
+
+            {/*  <ActivityCard countryWithActivity={countryWithActivity} /> */}
+
+            {/*                 {countryWithActivity && (countryWithActivity.map((c) => {
                     console.log(c)
-                    return (
+                     return ( 
 
 
                         <div key={c.id} >
                             <ActivityCard name={c.countries.map((n) => n.name)} flag={c.countries.map((f) => f.urlFlag)} continent={c.countries.map((a) => a.continent)} key={c.countries.map((i) => i.id)} id={c.countries.map((d) => d.id)} error={error} />
                         </div>
 
-                    )
+                     ) 
 
                 })
 
-                }
-            </div>
+                )} */}
         </div>
+        /*   </div> */
 
     )
 }

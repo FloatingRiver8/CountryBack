@@ -1,25 +1,26 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import s from './card.module.css'
+import ActCardRender from './ActCardRender'
 
 
-export default function ActivityCard({ name, flag, continent, id }) {
 
-
+export default function ActivityCard({ countryWithActivity }) {
 
 
     return (
 
-        <div className=  {`${s.home_cardEach}`} >
-        <Link to={`/country/${id}`} >
-        
-            <div className={`${s.card_cardDiv}`}>
-                <h1>{name}</h1>
-                <img src={flag} alt="flag" height='150px' width='210px' />
-                <p>Continent: {continent}</p>
-            </div>
+        <div>
 
-        </Link>
+            {countryWithActivity && countryWithActivity.map((c) => {
+
+                return (
+
+                    <div key={c.id} >
+                        <ActCardRender name={c.countries.map((n) => n.name)} flag={c.countries.map((f) => f.urlFlag)} continent={c.countries.map((a) => a.continent)} key={c.countries.map((i) => i.id)} id={c.countries.map((d) => d.id)} />
+                    </div>
+
+                )
+            })
+            }
 
         </div>
 

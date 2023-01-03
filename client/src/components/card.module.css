@@ -29,7 +29,7 @@
 background: #c6bd43;
 box-shadow:  5px 5px 10px #a8a139,
              -5px -5px 10px #e4d94d;
-  
+             text-decoration: none;
 }
 
 
@@ -50,10 +50,12 @@ border-radius: 10px;
 background: #da70d6;
 box-shadow:  5px 5px 10px #b95fb6,
              -5px -5px 10px #fb81f6;
+             
    
 }
 
 .card_cardDiv {
     border-width: 1rem;
     border-color: black;
+    
 }
