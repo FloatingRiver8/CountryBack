@@ -4,32 +4,32 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+
     justify-content: space-evenly;
     padding-top: 2rem;
-    border-radius:10px;
+    border-radius: 10px;
     background: #63c5bf;
-    box-shadow:  5px 5px 10px #54a7a2,
-                 -5px -5px 10px #72e3dc;
+    box-shadow: 5px 5px 10px #54a7a2,
+        -5px -5px 10px #72e3dc;
 
 
 
 }
 
-.home_allCards{
-   
+.home_allCards {
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
-    justify-content: space-evenly;
+
+    justify-content: start;
     padding-top: 2rem;
     border-radius: 10px;
-
-background: #c6bd43;
-box-shadow:  5px 5px 10px #a8a139,
-             -5px -5px 10px #e4d94d;
-             text-decoration: none;
+    width: 100vw;
+    background: #c6bd43;
+    box-shadow: 5px 5px 10px #a8a139,
+        -5px -5px 10px #e4d94d;
+    text-decoration: none;
 }
 
 
@@ -39,23 +39,33 @@ box-shadow:  5px 5px 10px #a8a139,
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-evenly; 
-    
+    justify-content: space-evenly;
+
 
     background: orchid;
     width: 40vh;
     padding: 1.5rem;
     margin: 3rem 2rem;
-border-radius: 10px;
-background: #da70d6;
-box-shadow:  5px 5px 10px #b95fb6,
-             -5px -5px 10px #fb81f6;
-             
-   
+    border-radius: 10px;
+    background: #da70d6;
+    box-shadow: 5px 5px 10px #b95fb6,
+        -5px -5px 10px #fb81f6;
+
+
 }
 
 .card_cardDiv {
     border-width: 1rem;
     border-color: black;
-    
+
 }
+
+
+
+s.home_cardFlex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100vw;
+    background-color: #63c5bf;
+} 

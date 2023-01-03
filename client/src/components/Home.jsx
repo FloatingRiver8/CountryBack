@@ -134,8 +134,6 @@ function Home() {
                 <div>
                     <select onChange={handleOnActivity} >
                         <option value="1" name="default">Activity</option>
-
-
                         {
                             uniqueActivities.map((e) => {
                                 return (
@@ -154,41 +152,23 @@ function Home() {
                     </button>
                 </Link>
 
+
+
+
             </div>
 
+            
+                {/* //SHOWING CARDS */}
 
+                {error ? <Error /> : <Card country={country} /> }
 
+                {!country.length || !error ? <ActivityCard countryWithActivity={countryWithActivity} /> : null}
 
-            {/* //SHOWING CARDS */}
-
-            {error ? <Error /> : <Card country={country} />}
-
-            {!country.length || !error ? <div className={`${s.home_allCards}`}  ><ActivityCard countryWithActivity={countryWithActivity} /> </div> : null}
-
-
-            {/*  <ActCardRender/> */}
-
-
-            {/*  <ActivityCard countryWithActivity={countryWithActivity} /> */}
-
-            {/*                 {countryWithActivity && (countryWithActivity.map((c) => {
-                    console.log(c)
-                     return ( 
-
-
-                        <div key={c.id} >
-                            <ActivityCard name={c.countries.map((n) => n.name)} flag={c.countries.map((f) => f.urlFlag)} continent={c.countries.map((a) => a.continent)} key={c.countries.map((i) => i.id)} id={c.countries.map((d) => d.id)} error={error} />
-                        </div>
-
-                     ) 
-
-                })
-
-                )} */}
-        </div>
-        /*   </div> */
-
+                </div>
+           
+        
     )
+
 }
 
 

@@ -10,32 +10,35 @@ let regOneToTen = new RegExp('^[1-9]$')
 
 
 
-const validateForm = (input) =>{
+const validateForm = (input) => {
   let inputError = {}
 
-  if(!wordAtLeastOneLetter.test(input.name)){
-    inputError.name = "Name required"}else{ inputError.name = ""}
-  if (!input.difficulty){
-    inputError.difficulty = "A number is required"}else{ inputError.difficulty = ""}
-   if(!regOneToFive.test(input.difficulty)){
-    inputError.difficulty = "value must be under 5"}else{ inputError.difficulty = ""}
-  if(!regOneToTen.test(input.duration)){
-  inputError.duration = "value must be under 10"
-  }else{ inputError.duration = ""}
+  if (!wordAtLeastOneLetter.test(input.name)) {
+    inputError.name = "Name required"
+  } else { inputError.name = "" }
+  if (!input.difficulty) {
+    inputError.difficulty = "A number is required"
+  } else { inputError.difficulty = "" }
+  if (!regOneToFive.test(input.difficulty)) {
+    inputError.difficulty = "value must be under 5"
+  } else { inputError.difficulty = "" }
+  if (!regOneToTen.test(input.duration)) {
+    inputError.duration = "value must be under 10"
+  } else { inputError.duration = "" }
   return inputError
 }
 
 
 
-
-
 function Form() {
+
+
   const dispatch = useDispatch()
   const history = useHistory()
 
   const countries = useSelector((state) => state.allCountries)
   const error = useSelector((state) => state.error)
-const [inputError , setInputError] = useState({})
+  const [inputError, setInputError] = useState({})
 
   const [input, setInput] = useState({
     name: "",
@@ -50,7 +53,6 @@ const [inputError , setInputError] = useState({})
 
 
 
-  console.log(input)
   useEffect(() => {
     dispatch(getAllCountries())
   }, [dispatch])
@@ -63,14 +65,17 @@ const [inputError , setInputError] = useState({})
       [e.target.name]: e.target.value
     })
 
-//control errores
- setInputError(validateForm({
-  ...input,
-  [e.target.name]: e.target.value
-})) 
+    //control errores
+    setInputError(validateForm({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
 
 
   }
+
+
+//Handles
 
   const handleSeason = (e) => {
     if (e.target.value) {
@@ -101,25 +106,24 @@ const [inputError , setInputError] = useState({})
     })
   }
 
-  
+
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(input)
-    
-    if (input.name && input.difficulty && input.duration && input.season && input.countries !== ""){
-    
+
+    if (input.name && input.difficulty && input.duration && input.season && input.countries !== "") {
+
       dispatch(postActivity(input))
       alert("Activity created succesfully")
       history.push('/home')
     }
-   else {
-    
-    console.log(inputError)
-      console.log("falta")
-      alert("some information is missing")
-  }
+    else {
 
-   
+      console.log(inputError)
+      alert("some information is missing")
+    }
+
+
 
     setInput({
       name: "",
@@ -129,102 +133,102 @@ const [inputError , setInputError] = useState({})
       countries: []
     })
 
-   
+
   }
 
 
 
+//Render
+
+  return (
+    <div className={`${s.form_mainDiv}`}>
+      <Link to='/home'>
+        <button>Home</button>
+      </Link>
+      <h1>Create your activity</h1>
 
 
-return (
-  <div className={`${s.form_mainDiv}`}>
-    <Link to='/home'>
-      <button>Home</button>
-    </Link>
-    <h1>Create your activity</h1>
+      <form onSubmit={handleSubmit} >
+        <div className={`${s.form_formContainer}`}>
 
+          <div className={`${s.form_inputs}`}>
+            <label>Name:</label>
+            <input type='text'
+              value={input.name}
+              name='name'
+              onChange={handleChange}
+            />
+            {inputError.name && (<p className= {`${s.form_error}`}>{inputError.name}</p>)}
+          </div>
 
-    <form onSubmit={handleSubmit} > activity form
-      <div className={`${s.form_formContainer}`}>
+          <div className={`${s.form_inputs}`}>
+            <label>Difficulty:</label>
+            <input type='text'
+              value={input.difficulty}
+              name='difficulty'
+              onChange={handleChange} />
+            {inputError.difficulty && (<p className= {`${s.form_error}`}>{inputError.difficulty}</p>)}
+          </div>
 
-        <div className={`${s.form_inputs}`}>
-          <label>Name:</label>
-          <input type='text'
-            value={input.name}
-            name='name'
-            onChange={handleChange}
-          />
-          {inputError.name && ( <p>{inputError.name}</p>)}
-        </div>
+          <div className={`${s.form_inputs}`}>
+            <label>Duration:</label>
+            <input type='text'
+              value={input.duration}
+              name='duration'
+              onChange={handleChange} />
+            {inputError.duration && (<p className= {`${s.form_error}`}>{inputError.duration}</p>)}
+          </div>
 
-
-        <div className={`${s.form_inputs}`}>
-          <label>Difficulty:</label>
-          <input type='text'
-            value={input.difficulty}
-            name='difficulty'
-            onChange={handleChange} />
-            {inputError.difficulty && ( <p>{inputError.difficulty}</p>)}
-        </div>
-
-
-        <div className={`${s.form_inputs}`}>
-          <label>Duration:</label>
-          <input type='text'
-            value={input.duration}
-            name='duration'
-            onChange={handleChange} />
-            {inputError.duration && ( <p>{inputError.duration}</p>)}
-        </div>
-        <div className={`${s.form_checks}`}>
-                                <label>Season: </label>
-                                <select onChange={handleSeason} required>
-                                    <option value="" hidden>Select season</option>
-                                    {season.map(e => (
-                                        <option value={e} name="season" key={e} >{e}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-
-        <div className={`${s.form_select}`}>
-          <select onChange={handleSelect}>Countries:
-
-            {countries?.map(e => {
-
-              return (
-                <option value={e.id} name="countries" key={e.id}>{e.name}</option>
-              )
-
-            })}
-
-          </select>
-
-
-          <div className={`${s.form_ul}`}>
-            <ul >
-              <li>{input.countries.map(el =>
-                <div onClick={() => handleDelete(el)} key={el} className={`${s.form_ulLi}`}>
-                  {el}
-
-                </div>
-              )} </li>
-            </ul>
-
+          <div className={`${s.form_checks}`}>
+            <label>Season: </label>
+            <select onChange={handleSeason} required>
+              <option value="" hidden>Select season</option>
+              {season.map(e => (
+                <option value={e} name="season" key={e} >{e}</option>
+              ))}
+            </select>
           </div>
 
 
-          <div>
-            <button type="submit">Create activity</button>
+          <div className={`${s.form_select}`}>
+            <select onChange={handleSelect}>Countries:
+
+            <option value="" name="countSelect" >Countries</option>
+              {countries?.map(e => {
+
+                return (
+                  <option value={e.id} name="countries" key={e.id}>{e.name}</option>
+                )
+
+              })}
+
+            </select>
+
+
+            <div className={`${s.form_ul}`}>
+              <ul >
+                <li>{input.countries.map(el =>
+                  <div onClick={() => handleDelete(el)} key={el} className={`${s.form_ulLi}`}>
+                    {el}
+
+                  </div>
+                )} </li>
+              </ul>
+
+            </div>
+
+
+            <div>
+              <button type="submit">Create activity</button>
+            </div>
+
+
           </div>
-
-
         </div>
-      </div>
-    </form>
+      </form>
 
-  </div>
-)
+    </div>
+  )
 }
 
 export default Form
