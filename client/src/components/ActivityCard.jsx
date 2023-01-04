@@ -7,7 +7,7 @@ import s from "./styles/activity.module.css"
 
 
 
-function Activity() {
+function ActivityCard() {
   const oneById = useSelector((state) => state.oneById)
 
   const dispatch = useDispatch()
@@ -33,4 +33,4 @@ function Activity() {
   )
 }
 
-export default Activity
+export default ActivityCard

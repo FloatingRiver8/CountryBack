@@ -8,7 +8,7 @@ import { getAllCountries, filterByContinent, orderByAlphabet, orderByPopulation,
 import SearchBar from './SearchBar'
 import Paginate from './Paginate'
 import Card from './Card'
-import ActivityCard from './ActvityCardMap'
+
 
 import Error from './Error'
 import s from './styles/home.module.css'
@@ -30,7 +30,7 @@ function Home() {
 
     const countryWithActivity = useSelector((state) => state.activity)
 
-    const [reloadHome, setRealoadHome]=useState(false)
+    const [reloadHome, setRealoadHome] = useState(false)
 
 
 
@@ -46,17 +46,6 @@ function Home() {
     //seteo el nº de la página en la que estoy, me vuelve del evento que me tira la func. del componente paginador
     const paginator = (pageNumber) => {
         setCurrentPage(pageNumber);
-    }
-
-
-    //para generar volver al home desd el componente activityCard
-      const displayAllCards = (e) =>{
-        if(!reloadHome){
-        setRealoadHome(true)
-      }else{
-        setRealoadHome(false)
-      }
-     
     }
 
 
@@ -82,7 +71,7 @@ function Home() {
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getAllActivities())
-    }, [dispatch, reloadHome  ])
+    }, [dispatch, reloadHome])
 
 
 
@@ -195,22 +184,11 @@ function Home() {
                     paginator={paginator}
                 />
 
-
-
-
             </div>
-
-  
-
 
             {/* //SHOWING CARDS */}
 
-            {error ? <Error /> : <Card country={country}  />}
-
-            {!country.length || !error ? <ActivityCard countryWithActivity={countryWithActivity} displayAllCards={displayAllCards} /> : null}
-
-
-
+            {error ? <Error /> : <Card country={country} />}
 
         </div>
 

@@ -111,7 +111,7 @@ const postActivity = (payload) => {
     }
   };
 };
-
+//para tomar los nombres para el select del filtro
 const getAllActivities = () => {
   return async (dispatch) => {
     const responseActivity = await axios.get(`http://localhost:3001/activity`);
@@ -124,15 +124,14 @@ const getAllActivities = () => {
   };
 };
 
+//para render de los paises por actividad
 const getActivity = (payload) => {
   return async (dispatch) => {
-    const responseActivity = await axios.get(
-      `http://localhost:3001/activity?name=${payload}`
-    );
+  
 
-    dispatch({
+dispatch({
       type: GET_ACTIVITY,
-      payload: responseActivity.data,
+      payload: payload,
     });
   };
 };
