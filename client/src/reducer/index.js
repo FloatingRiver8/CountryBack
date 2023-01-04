@@ -1,6 +1,6 @@
 /* import e from "express"; */
 
-import React from "react";
+
 import {
   GET_ALL_COUNTRIES,
   GET_ONE_COUNTRY,
@@ -27,6 +27,7 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
+    
     case GET_ALL_COUNTRIES:
       return {
         ...state,
@@ -34,6 +35,8 @@ export default function rootReducer(state = initialState, action) {
         copyAllCountries: action.payload,
         error: "",
       };
+
+
     case FAILURE:
       return {
         ...state,
@@ -41,30 +44,25 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case GET_ONE_COUNTRY:
-      const countriesByCont = state.copyAllCountries;
       const paySearchbar = action.payload;
-      const payCont = action.payloadCont; //me llega el continente en que está el filtro
-      const filteredByContinents = paySearchbar.filter(
-        (e) => e.continent === payCont
-      );
-
       return {
         ...state,
-        allCountries:
-          payCont !== "All continents" ? filteredByContinents : action.payload,
+        allCountries: paySearchbar,
         error: "",
       };
+
+
     case FILTER_BY_CONTINENT:
       const countries = state.copyAllCountries;
       const filteredContinents = countries.filter(
         (e) => e.continent === action.payload
-      );
-      /* console.log(filteredContinents) */
+      );   
       return {
         ...state,
         allCountries:
           action.payload === "All continents" ? countries : filteredContinents,
       };
+
 
     case ORDER_BY_ALPHABET:
       const alphCountries = state.allCountries;
@@ -84,6 +82,8 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCountries: order,
       };
+
+
     case ORDER_BY_POPULATION:
       const populationCountry = state.allCountries;
       const populationOrder =
@@ -102,28 +102,34 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         allCountries: populationOrder,
       };
+
+
     case DETAIL_CARD_BY_ID:
       return {
         ...state,
         oneById: action.payload,
+        error: ""
       };
+
+
     case POST_ACTIVITY:
       return {
         ...state,
       };
+
+
     //para paises por actividad
     case GET_ACTIVITY:
-      const countriesCopy = state.copyAllCountries;
-      const allAct = state.allActivities;
-
+      const countriesCopy = state.copyAllCountries;    
       const countryByActv = countriesCopy.filter((c) =>
         c.activities.find((a) => a.name === action.payload)
       );
-
       return {
         ...state,
         allCountries: countryByActv,
       };
+
+
     //para obtener los nombres de las actividades
     case GET_ALL_ACTIVITIES:
       return {

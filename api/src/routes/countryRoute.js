@@ -34,11 +34,12 @@ router.get("/", async (req, res) => {
         },
       });
 
-      console.log(response.name);
+    
       return res.status(200).send(response);
     }
   } catch (error) {
-    res.send(error );
+    console.log(error, "eso")
+    res.status(404).send({ 'msg': 'Error trying to get countries' }) 
   } 
 });
 
@@ -53,13 +54,13 @@ router.get("/:id", async (req, res) => {
     console.log(idResponse);
 
     if (!idResponse) {
-      console.log("id country not found");
+      res.status(400).send({ 'msg': 'Id country not found' }) ;
     } else {
       /* console.log("está") */
       res.status(200).send(idResponse);
     }
   } catch (err) {
-    res.send(err, 'este error de id en back');
+    res.status(404).send({ 'msg': 'Not ID country found' }) 
   }
 });
 

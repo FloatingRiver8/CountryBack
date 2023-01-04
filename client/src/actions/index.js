@@ -81,17 +81,25 @@ const orderByPopulation = (payload) => {
 
 const DetailCountryCardById = (payload) => {
   return async (dispatch) => {
-    const responseId = await axios.get(
+
+    try{
+    const response = await axios.get(
       `http://localhost:3001/country/${payload}`
     );
-    console.log(responseId);
+    
 
     dispatch({
       type: DETAIL_CARD_BY_ID,
-      payload: responseId.data,
-    });
+      payload: response.data,
+    });}
+    catch(err){
+    dispatch({
+      type: FAILURE,
+      payload: err.response.data.msg,
+    })
   };
 };
+}
 
 const postActivity = (payload) => {
   return async function (dispatch) {
@@ -120,7 +128,6 @@ const getAllActivities = () => {
       type: GET_ALL_ACTIVITIES,
       payload: responseActivity.data,
     });
-    console.log(responseActivity);
   };
 };
 

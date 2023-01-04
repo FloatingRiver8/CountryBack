@@ -1,11 +1,14 @@
 import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
 
+
 import LandingPage from "./components/LandingPage";
 import Home from "./components/Home";
 
 import Form from "./components/Form";
 import DetailCountryCard from "./components/DetailCountryCard";
+ 
+
 
 function App() {
   return (

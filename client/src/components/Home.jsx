@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -28,9 +28,9 @@ function Home() {
 
     const activity = useSelector((state) => state.allActivities)
 
-    const countryWithActivity = useSelector((state) => state.activity)
+   
 
-    const [reloadHome, setRealoadHome] = useState(false)
+ 
 
 
 
@@ -71,28 +71,29 @@ function Home() {
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getAllActivities())
-    }, [dispatch, reloadHome])
+    }, [dispatch])
 
 
 
 
     const handleOnContinents = (e) => {
         dispatch(filterByContinent(e.target.value))
-        // para que siempre esté ordenado según el option del select sin importar si se cambia de continente
+
+        // para que siempre esté ordenado según el option del select sin importar si se cambia de continente ya q hace es dispatch cuando pido x continnte
         if (alphOrder === "Z-A") {
             dispatch(orderByAlphabet("Z-A"))
         } else {
             dispatch(orderByAlphabet("A-Z"))
-        }
+        } 
 
-        setContFilter(e.target.value)//actualiza el estado del filtro
+        setContFilter(e.target.value)//actualiza el estado del filtro para renderizar
     }
 
 
 
     const handleOnAlphabet = (e) => {
         dispatch(orderByAlphabet(e.target.value))
-        setAlphOrder(e.target.value)
+        setAlphOrder(e.target.value)//actualiza el estado del filtro
     }
 
 
@@ -188,7 +189,7 @@ function Home() {
 
             {/* //SHOWING CARDS */}
 
-            {error ? <Error /> : <Card country={country} />}
+            {error ? <Error /> : <Card country={country}/> }
 
         </div>
 

@@ -12,11 +12,12 @@ export default function Card({ country }) {
         <div className={`${s.home_allCards}`}  >
 
             {country.length && country.map(e => {
+
                 return (
-                    <div>
+                    <div key={`${e.id}`}>
                         < Link to={`/country/${e.id}`} style={{ textDecoration: 'none' }} >
 
-                            <div className={`${s.home_cardEach}`}>
+                            <div className={`${s.home_cardEach}`} key={`${e.id}`}  >
                                 <h1>{e.name}</h1>
                                 <img src={e.flag} alt="flag" height='150px' width='210px' />
                                 <p>Continent: {e.continent}</p>

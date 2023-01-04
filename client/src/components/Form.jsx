@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { getActivity, getAllCountries, postActivity } from '../actions/index'
+import { getAllCountries, postActivity } from '../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
 
 import s from './styles/form.module.css'
@@ -37,7 +37,7 @@ function Form() {
   const history = useHistory()
 
   const countries = useSelector((state) => state.allCountries)
-  const error = useSelector((state) => state.error)
+  
   const [inputError, setInputError] = useState({})
 
   const [input, setInput] = useState({
