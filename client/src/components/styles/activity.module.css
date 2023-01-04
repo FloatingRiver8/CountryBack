@@ -1,19 +1,19 @@
 .activity_actvMainDiv {
-    
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     border-radius: 10px;
     background: #c6bd43;
-    box-shadow:  5px 5px 10px #a8a139,
-                 -5px -5px 10px #e4d94d;
+    box-shadow: 5px 5px 10px #a8a139,
+        -5px -5px 10px #e4d94d;
     justify-content: space-evenly;
     align-items: center;
     margin: 5rem auto 2rem;
 
 }
 
-
+/* // */
 .activity_actvEachDiv {
 
     background: aqua;
@@ -23,15 +23,12 @@
     border-radius: 7px;
     align-items: center;
     justify-items: space-between;
-    margin: 2rem ;
+    margin: 2rem;
     padding: 1rem;
     border-radius: 43px;
     background: #63c5bf;
-    box-shadow:  5px 5px 10px #54a7a2,
-                 -5px -5px 10px #72e3dc;
-  
+    box-shadow: 5px 5px 10px #54a7a2,
+        -5px -5px 10px #72e3dc;
+
 
 }
-
-
-
