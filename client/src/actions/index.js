@@ -13,6 +13,7 @@ export const GET_ALL_ACTIVITIES = "GET_ALL_ACTIVITIES";
 
 export const FAILURE = "FAILURE";
 
+//Get all countries
 const getAllCountries = () => {
   return async (dispatch) => {
     try {
@@ -30,6 +31,8 @@ const getAllCountries = () => {
     }
   };
 };
+
+
 //country by name
 const getOneCountry = (payload, payloadCont) => {
   return async (dispatch) => {
@@ -52,28 +55,29 @@ const getOneCountry = (payload, payloadCont) => {
   };
 };
 
+
+//country by id
 const DetailCountryCardById = (payload) => {
   return async (dispatch) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/country/${payload}`
+      );
 
-    try{
-    const response = await axios.get(
-      `http://localhost:3001/country/${payload}`
-    );
-    
-
-    dispatch({
-      type: DETAIL_CARD_BY_ID,
-      payload: response.data,
-    });}
-    catch(err){
-    dispatch({
-      type: FAILURE,
-      payload: err.response.data.msg,
-    })
+      dispatch({
+        type: DETAIL_CARD_BY_ID,
+        payload: response.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: FAILURE,
+        payload: err.response.data.msg,
+      });
+    }
   };
 };
-}
 
+//Filters and order
 const filterByContinent = (payload) => {
   return (dispatch) => {
     dispatch({
@@ -102,7 +106,7 @@ const orderByPopulation = (payload) => {
 };
 
 
-
+//Post activity
 const postActivity = (payload) => {
   return async function (dispatch) {
     try {
@@ -112,8 +116,8 @@ const postActivity = (payload) => {
       );
       console.log(response);
       return response;
-    } catch (error) {
-      /* console.log(error.response.data.msg);  */
+    } 
+    catch (error) {
       dispatch({
         type: FAILURE,
         payload: error.response.data.msg,
@@ -121,7 +125,8 @@ const postActivity = (payload) => {
     }
   };
 };
-//para tomar los nombres para el select del filtro
+
+//para tomar los nombres para el select  del filtro actv
 const getAllActivities = () => {
   return async (dispatch) => {
     const responseActivity = await axios.get(`http://localhost:3001/activity`);
@@ -133,12 +138,10 @@ const getAllActivities = () => {
   };
 };
 
-//para render de los paises por actividad
+//para filtrar los paises por actividad
 const getActivity = (payload) => {
   return async (dispatch) => {
-  
-
-dispatch({
+    dispatch({
       type: GET_ACTIVITY,
       payload: payload,
     });

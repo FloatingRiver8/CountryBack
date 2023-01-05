@@ -1,6 +1,4 @@
 /* import e from "express"; */
-
-
 import {
   GET_ALL_COUNTRIES,
   GET_ONE_COUNTRY,
@@ -27,7 +25,7 @@ const initialState = {
 
 export default function rootReducer(state = initialState, action) {
   switch (action.type) {
-    
+//Get countries all, name, id
     case GET_ALL_COUNTRIES:
       return {
         ...state,
@@ -43,20 +41,34 @@ export default function rootReducer(state = initialState, action) {
         error: action.payload,
       };
 
+
     case GET_ONE_COUNTRY:
       const paySearchbar = action.payload;
+      const payCont = action.payloadCont; //me llega el continente en que está el filtro
+      const filteredByContinents = paySearchbar.filter(
+        (e) => e.continent === payCont
+      );
       return {
         ...state,
-        allCountries: paySearchbar,
+        allCountries:
+          payCont !== "All continents" ? filteredByContinents : action.payload,
         error: "",
       };
 
+      
+      case DETAIL_CARD_BY_ID:
+        return {
+          ...state,
+          oneById: action.payload,
+          error: ""
+        };
 
+//Filters & order
     case FILTER_BY_CONTINENT:
       const countries = state.copyAllCountries;
       const filteredContinents = countries.filter(
         (e) => e.continent === action.payload
-      );   
+      );
       return {
         ...state,
         allCountries:
@@ -103,22 +115,14 @@ export default function rootReducer(state = initialState, action) {
         allCountries: populationOrder,
       };
 
-
-    case DETAIL_CARD_BY_ID:
-      return {
-        ...state,
-        oneById: action.payload,
-        error: ""
-      };
-
-
+//Activities
     case POST_ACTIVITY:
       return {
         ...state,
       };
 
 
-    //para paises por actividad
+    //filtro paises por actividad
     case GET_ACTIVITY:
       const countriesCopy = state.copyAllCountries;    
       const countryByActv = countriesCopy.filter((c) =>
@@ -129,13 +133,14 @@ export default function rootReducer(state = initialState, action) {
         allCountries: countryByActv,
       };
 
-
     //para obtener los nombres de las actividades
     case GET_ALL_ACTIVITIES:
       return {
         ...state,
         allActivities: action.payload,
       };
+
+
     default:
       return state;
   }

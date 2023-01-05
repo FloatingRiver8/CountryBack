@@ -79,7 +79,7 @@ function Home() {
 
 
     const handleOnContinents = (e) => {
-        dispatch(filterByContinent(e.target.value))
+        dispatch(filterByContinent(e.target.value, contFilter))
 
         // para que siempre esté ordenado según el option del select sin importar si se cambia de continente ya q hace es dispatch cuando pido x continnte
         if (alphOrder === "Z-A") {

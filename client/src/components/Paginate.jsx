@@ -1,9 +1,5 @@
 import React from 'react';
 import s from './styles/paginate.module.css'
-import {useEffect} from 'react'
-import{useDispatch} from'react-redux'
-
-
 
 function Paginate({ countryPerPage, allCountries, paginator }) {
 
