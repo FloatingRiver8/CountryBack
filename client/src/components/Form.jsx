@@ -4,6 +4,8 @@ import { getAllCountries, postActivity } from '../actions/index'
 import { useDispatch, useSelector } from 'react-redux'
 
 import s from './styles/form.module.css'
+
+
 let wordAtLeastOneLetter = new RegExp('^[a-zA-Z]{3,}$')
 let regOneToFive = new RegExp('^[1-5]$')
 let regOneToTen = new RegExp('^[1-9]$')
@@ -106,7 +108,7 @@ function Form() {
     })
   }
 
-
+//Handle SUBMIT
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(input)
@@ -124,7 +126,7 @@ function Form() {
     }
 
 
-
+//limpieza estados de Inputs en cero
     setInput({
       name: "",
       difficulty: "",
@@ -204,7 +206,7 @@ function Form() {
 
             </select>
 
-
+{/* Renderizado de los countries seleccionados y su delete */}
             <div className={`${s.form_ul}`}>
               <ul >
                 <li>{input.countries.map(el =>

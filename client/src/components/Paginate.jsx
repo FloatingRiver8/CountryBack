@@ -1,9 +1,13 @@
 import React from 'react';
 import s from './styles/paginate.module.css'
+import {useEffect} from 'react'
+import{useDispatch} from'react-redux'
 
 
 
 function Paginate({ countryPerPage, allCountries, paginator }) {
+
+
 
     //para sacar la cantidad de páginas que necesito para mostrar todos mis countries
     const pageNumbers = [];

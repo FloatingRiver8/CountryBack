@@ -2,21 +2,22 @@ const { Router } = require("express");
 const { Country, Activity } = require("../db");
 const { getAllInfo } = require("./controllers");
 const { Op } = require("sequelize");
-const axios = require("axios");
 
 const router = Router();
+
+//Get activities
 
 router.get("/", async (req, res) => {
   const { name } = req.query;
 
-  const response = await getAllInfo();
+  const response = await getAllInfo();//para que se llene la bd en caso de estar vacía
+
   if (name) {
     const oneActivity = await Activity.findAll({
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: Country,
     });
 
-    console.log(oneActivity);
     res.status(200).send(oneActivity);
   } else {
     const allActivities = await Activity.findAll({ include: Country });
@@ -28,18 +29,11 @@ router.get("/", async (req, res) => {
 
 
 
-
+//Post activity
 router.post("/", async (req, res) => {
   const { name, difficulty, duration, season, countries } = req.body;
   try {
     if (name && difficulty && duration && season && countries) {
-      /*     if(name){ 
-      const repeatedNameActivity = await Activity.findAll({
-        where: {name : {[Op.iLike]: `%${name}%` }},
-        include: Country,
-        
-      }) */
-
       let activity = await Activity.create({
         name,
         difficulty,
@@ -48,35 +42,6 @@ router.post("/", async (req, res) => {
       });
 
       await activity.setCountries(countries); // para relacionar la actividad con el country en la tabla intermedia
-     /*  res.status(404).send({ 'msg': "Name repeated, try a new one" }); */
-
-
-    
-
-      let completeActivity = await Activity.findOne({
-        where: {
-          name: name,
-        },
-        include: {
-          model: Country,
-
-          /* 
-        attributes: {
-          include: ["name"],
-          exclude: [
-            "area",
-            "population",
-            "subregion",
-            "South America",
-            "createdAt",
-            "updatedAt",
-          ],
-        }, */
-          through: {
-            attributes: [],
-          },
-        },
-      });
 
       res.status(200).send(completeActivity);
     } else {

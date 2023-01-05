@@ -29,36 +29,6 @@ const getAllInfo = async () => {
   }
 };
 
-/* 
-const getById = async(id) =>{
-
-const idResponse = await Country.findByPk(`${id}`)
-console.log(idResponse)
-if( !idResponse){
-    console.log("id country not found")
-}else{
-
-    /* console.log("está") */
-/*    idResponse.country.dataValues =  {
-        
-            id: idResponse.id,
-            name: idResponse.name,
-            urlFlag: idResponse.urlFlag,
-            continent: idResponse.continent,
-            capital: idResponse.capital ,
-            subregion: idResponse.subregion,
-            area: idResponse.area,
-            population: idResponse.population,
-         
-    } 
-
-  
-  
-}
- 
- return idResponse
-
-}   */
 
 module.exports = {
   getAllInfo,

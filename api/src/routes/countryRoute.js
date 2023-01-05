@@ -1,4 +1,3 @@
-const axios = require("axios");
 
 const { Router } = require("express");
 const { Country, Activity } = require("../db");
@@ -6,10 +5,11 @@ const { Country, Activity } = require("../db");
 const { getAllInfo } = require("./controllers");
 const { Op } = require("sequelize");
 const router = Router();
-/* router.use(express.json()) */
 
+//Get country all or name
 router.get("/", async (req, res) => {
   const { name } = req.query;
+
 
   try { 
     const response = await getAllInfo();
@@ -38,7 +38,6 @@ router.get("/", async (req, res) => {
       return res.status(200).send(response);
     }
   } catch (error) {
-    console.log(error, "eso")
     res.status(404).send({ 'msg': 'Error trying to get countries' }) 
   } 
 });
@@ -46,7 +45,7 @@ router.get("/", async (req, res) => {
 
 
 
-
+/*Get country by Id */
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -56,11 +55,10 @@ router.get("/:id", async (req, res) => {
     if (!idResponse) {
       res.status(400).send({ 'msg': 'Id country not found' }) ;
     } else {
-      /* console.log("está") */
       res.status(200).send(idResponse);
     }
   } catch (err) {
-    res.status(404).send({ 'msg': 'Not ID country found' }) 
+    res.status(404).send({ 'msg': 'Error getting data' }) 
   }
 });
 

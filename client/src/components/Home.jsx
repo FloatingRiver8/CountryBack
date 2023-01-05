@@ -71,7 +71,9 @@ function Home() {
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getAllActivities())
-    }, [dispatch])
+       
+  
+    }, [dispatch, ])
 
 
 

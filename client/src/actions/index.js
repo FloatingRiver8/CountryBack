@@ -30,7 +30,7 @@ const getAllCountries = () => {
     }
   };
 };
-
+//country by name
 const getOneCountry = (payload, payloadCont) => {
   return async (dispatch) => {
     try {
@@ -51,6 +51,28 @@ const getOneCountry = (payload, payloadCont) => {
     }
   };
 };
+
+const DetailCountryCardById = (payload) => {
+  return async (dispatch) => {
+
+    try{
+    const response = await axios.get(
+      `http://localhost:3001/country/${payload}`
+    );
+    
+
+    dispatch({
+      type: DETAIL_CARD_BY_ID,
+      payload: response.data,
+    });}
+    catch(err){
+    dispatch({
+      type: FAILURE,
+      payload: err.response.data.msg,
+    })
+  };
+};
+}
 
 const filterByContinent = (payload) => {
   return (dispatch) => {
@@ -79,27 +101,7 @@ const orderByPopulation = (payload) => {
   };
 };
 
-const DetailCountryCardById = (payload) => {
-  return async (dispatch) => {
 
-    try{
-    const response = await axios.get(
-      `http://localhost:3001/country/${payload}`
-    );
-    
-
-    dispatch({
-      type: DETAIL_CARD_BY_ID,
-      payload: response.data,
-    });}
-    catch(err){
-    dispatch({
-      type: FAILURE,
-      payload: err.response.data.msg,
-    })
-  };
-};
-}
 
 const postActivity = (payload) => {
   return async function (dispatch) {
