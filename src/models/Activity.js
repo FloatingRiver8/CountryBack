@@ -17,17 +17,17 @@ module.exports = (sequelize) => {
       },
 
       difficulty: {
-        type: DataTypes.ENUM("1", "2", "3", "4", "5"),
-        allowNull: true
+        type: DataTypes.ENUM("Rookie", "I can do it", "Like a pro"),
+        allowNull: false
       },
 
       duration: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       season: {
         type: DataTypes.ENUM("Summer", "Autumn", "Winter", "Spring"),
-        allowNull: true,
+        allowNull: false,
       },
 
       fromDb: {
